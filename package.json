@@ -1,0 +1,25 @@
+{
+  "name": "1dv503_ass_2_book_store",
+  "version": "1.0.0",
+  "description": "1DV503 Assignment 2 Book Store Web App",
+  "homepage": "https://github.com/ea225mw/1dv503_ass_2_book_store#readme",
+  "bugs": {
+    "url": "https://github.com/ea225mw/1dv503_ass_2_book_store/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ea225mw/1dv503_ass_2_book_store.git"
+  },
+  "license": "ISC",
+  "author": "Emanuel Andersen",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.16.0"
+  }
+}
