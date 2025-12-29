@@ -15,6 +15,7 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
+    "dev": "nodemon --inspect --env-file=.env src/server.js",
     "start": "node --env-file=.env src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,5 +23,8 @@
     "ejs": "^3.1.10",
     "express": "^5.2.1",
     "mysql2": "^3.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }

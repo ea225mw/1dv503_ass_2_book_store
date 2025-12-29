@@ -1,0 +1,59 @@
+main {
+  display: grid;
+  grid-template-columns: 3rem 80vh 3rem; /* Left margin / Main / Right margin */
+  grid-template-rows: 3rem 3rem 80vh 3rem; /* Header / Navigation / Main / Footer */
+}
+
+header {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+nav {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+h1 {
+  color: blueviolet;
+}
+
+#registerWrapper {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 1rem;
+}
+
+input[type='text'] {
+  max-width: 16rem;
+}
+
+footer {
+  grid-column: 2;
+  grid-row: 4;
+}
