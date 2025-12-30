@@ -54,7 +54,13 @@ input[type='text'] {
   max-width: 16rem;
 }
 
-#registerButton {
+input[data-valid='false'] {
+  border: solid 3px red;
+  background-color: rgb(251, 175, 175);
+}
+
+#registerButton,
+#loginButton {
   max-width: 150px;
   margin-top: 1rem;
 }

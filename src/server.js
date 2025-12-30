@@ -15,7 +15,8 @@ const baseURL = process.env.BASE_URL || '/'
 app.set('view engine', 'ejs')
 app.set('views', join(directoryFullName, 'views'))
 
-app.use(express.urlencoded({extended: false}))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(join(directoryFullName, '..', 'public')))
 

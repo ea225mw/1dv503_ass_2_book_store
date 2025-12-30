@@ -7,6 +7,7 @@
   <base href="<%= baseURL %>">
   <title>Member Registration</title>
   <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/index.js" type="module"></script>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
 
         <div id="registerWrapper">
           <h2>Register new user</h2>
-          <form action="./register" method="post">
+          <form id="registerForm">
             <label for="firstName">First name</label>
             <input type="text" name="firstName">
             <label for="lastName">Last name</label>
@@ -34,8 +35,31 @@
             <input type="text" name="email">
             <label for="password">Password</label>
             <input type="text" name="password">
-            <button type="submit" id="registerButton">Register</button>
+            <button type="button" id="registerButton">Register</button>
           </form>
+        </div>
+
+        <!-- <div id="registerWrapper">
+          <h2>Register new user</h2>
+          <form id="registerForm">
+            <label for="firstName">First name</label>
+            <input type="text" name="firstName" value="FirstName1">
+            <label for="lastName">Last name</label>
+            <input type="text" name="lastName" value="LastName1">
+            <label for="address">Address (Street)</label>
+            <input type="text" name="address" value="Street1">
+            <label for="city">City</label>
+            <input type="text" name="city" value="City1">
+            <label for="zipCode">Zip code</label>
+            <input type="text" name="zipCode" value="12345">
+            <label for="phone">Phone number</label>
+            <input type="text" name="phone" value="0123456789">
+            <label for="email">E-mail</label>
+            <input type="text" name="email" value="email_1@email.com">
+            <label for="password">Password</label>
+            <input type="text" name="password" value="password_1">
+            <button type="submit" id="registerButton">Register</button>
+          </form> -->
         </div>
 
         <%- include('../partials/footer') %>
