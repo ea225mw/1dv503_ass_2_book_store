@@ -20,21 +20,11 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(join(directoryFullName, '..', 'public')))
 
-app.use(
-  session({
-    name: process.env.SESSION_NAME,
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
-      sameSite: 'strict',
-    },
-  })
-)
+app.use(session(sessionOptions))
 
 app.use((req, res, next) => {
   res.locals.baseURL = baseURL
+  res.locals.loggedIn = Boolean(req.session.userID)
   next()
 })
 

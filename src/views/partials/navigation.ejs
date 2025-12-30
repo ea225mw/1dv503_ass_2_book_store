@@ -3,12 +3,19 @@
     <li>
       <a href="./">Home</a>
     </li>
-    <li>
-      <a href="./register">Register</a>
-    </li>
-    <li>
-      <a href="./login">Log in</a>
-    </li>
+    <% if (!loggedIn) { %>
+      <li>
+        <a href="./register">Register</a>
+      </li>
+      <li>
+        <a href="./login">Log in</a>
+      </li>
+      <% } else { %>
+        <li>
+          <a href="./logout">Log out</a>
+        </li>
+        <% } %>
+
   </ul>
 
 </nav>

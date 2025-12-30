@@ -9,11 +9,16 @@ export class LoginController {
   async logUserIn(req, res, next) {
     const {email, password} = req.body
     const [rows] = await dbPool.execute('SELECT * FROM members WHERE email = ? LIMIT 1', [email])
-    console.log(rows)
-    if (rows) {
-      const match = await bcrypt.compare(password, rows[0].password)
+    const user = rows[0]
+
+    if (rows.length > 0) {
+      const match = await bcrypt.compare(password, user.password)
       if (match) {
-        console.log('Correct credentials')
+        req.session.regenerate(() => {
+          req.session.userID = user.userid
+          req.session.currentUserName = user.fname
+          res.redirect('./')
+        })
       }
     }
   }
