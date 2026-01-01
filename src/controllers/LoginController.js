@@ -3,7 +3,11 @@ import {dbPool} from '../config/database.js'
 
 export class LoginController {
   index(req, res, next) {
-    res.render('./login')
+    if (!req.session.userID) {
+      res.render('./login')
+    } else {
+      res.render('./home')
+    }
   }
 
   async logUserIn(req, res, next) {

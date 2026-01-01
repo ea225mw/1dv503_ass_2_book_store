@@ -23,6 +23,11 @@ app.use(express.static(join(directoryFullName, '..', 'public')))
 app.use(session(sessionOptions))
 
 app.use((req, res, next) => {
+  if (req.session.flash) {
+    res.locals.flash = req.session.flash
+    delete req.session.flash
+  }
+
   res.locals.baseURL = baseURL
   res.locals.loggedIn = Boolean(req.session.userID)
   next()

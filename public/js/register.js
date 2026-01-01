@@ -1,6 +1,7 @@
-const registerForm = document.querySelector('#registerForm')
+/*const registerForm = document.querySelector('#registerForm')
 const allInputFields = document.querySelectorAll('#registerForm > input')
 const registerFormSubmitButton = document.querySelector('#registerButton')
+*/
 
 const firstName = document.querySelector('input[name="firstName"]')
 const lastName = document.querySelector('input[name="lastName"]')
@@ -11,7 +12,21 @@ const phone = document.querySelector('input[name="phone"]')
 const email = document.querySelector('input[name="email"]')
 const password = document.querySelector('input[name="password"]')
 
-function checkInputFields() {
+function autoFillTestData() {
+  firstName.value = 'Calle'
+  lastName.value = 'Martinsson'
+  address.value = 'Ystadvägen 140'
+  city.value = 'Johanneshov'
+  zipCode.value = '98765'
+  phone.value = '0730598762'
+  email.value = 'calle@martinson.se'
+  password.value = 'KalleAnkasFarmor'
+}
+
+autoFillTestData()
+
+/*
+function checkForEmptyInputFields() {
   allInputFields.forEach((inputField) => {
     if (inputField.value === '') {
       inputField.dataset.valid = 'false'
@@ -24,7 +39,7 @@ function checkInputFields() {
 registerFormSubmitButton.addEventListener('click', async (event) => {
   event.preventDefault()
 
-  checkInputFields()
+  checkForEmptyInputFields()
 
   const isSomeFieldInvalid = [...allInputFields].some((inputField) => inputField.dataset.valid === 'false')
 
@@ -55,3 +70,4 @@ registerFormSubmitButton.addEventListener('click', async (event) => {
     }
   }
 })
+*/
