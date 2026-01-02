@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 
   res.locals.baseURL = baseURL
   res.locals.loggedIn = Boolean(req.session.userID)
+  res.locals.currentUserName = req.session.currentUserName
   next()
 })
 

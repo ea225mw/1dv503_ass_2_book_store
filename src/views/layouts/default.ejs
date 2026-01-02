@@ -7,16 +7,18 @@
   <base href="<%= baseURL %>">
   <title>Emanuels Book Store</title>
   <link rel="stylesheet" href="./css/styles.css">
-  <script src="./js/register.js" type="module"></script>
 </head>
 
 <body>
   <main>
     <%- include('../partials/header') %>
       <%- include('../partials/navigation') %>
-        <%- include('../partials/flash') %>
-          <%- body %>
-            <%- include('../partials/footer') %>
+        <%- include('../partials/userName') %>
+          <%- include('../partials/flash') %>
+            <%- body %>
+              <footer>
+                Assignment 2 in course 1DV503, Linnéuniversitetet, Emanuel Andersen ea225mw@student.lnu.se
+              </footer>
   </main>
 </body>
 

@@ -1,7 +1,7 @@
 main {
   display: grid;
   grid-template-columns: 3rem 80vh 3rem; /* Left margin / Main / Right margin */
-  grid-template-rows: 3rem 3rem 3rem 80vh 3rem; /* Header / Navigation / Flash / Main / Footer */
+  grid-template-rows: 3rem 2rem auto auto minmax(80vh, auto) 3rem; /* Header / Navigation / Logged in as / Flash / Main / Footer */
 }
 
 header {
@@ -22,12 +22,12 @@ ul {
   padding-left: 0;
 }
 
-a {
+nav a {
   color: black;
   text-decoration: none;
 }
 
-a:visited {
+nav a:visited {
   color: black;
 }
 
@@ -38,7 +38,7 @@ h1 {
 #registerWrapper,
 #loginFormWrapper {
   grid-column: 2;
-  grid-row: 3;
+  grid-row: 5;
 }
 
 form {
@@ -60,15 +60,22 @@ input[data-valid='false'] {
   background-color: rgb(251, 175, 175);
 }
 
+/*
 #registerButton,
 #loginButton {
+  max-width: 150px;
+  margin-top: 1rem;
+}*/
+
+button {
   max-width: 150px;
   margin-top: 1rem;
 }
 
 footer {
   grid-column: 2;
-  grid-row: 5;
+  grid-row: 6;
+  margin-top: 10px;
 }
 
 .errorMessage {
@@ -77,6 +84,9 @@ footer {
 }
 
 .flash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   grid-column: 2;
   grid-row: 3;
   border: 2px solid;
@@ -87,4 +97,78 @@ footer {
 
 .alert-success {
   background-color: rgb(198, 251, 120);
+}
+
+.toMain {
+  grid-column: 2;
+  grid-row: 5;
+}
+
+.currentUserName {
+  grid-column: 2;
+  grid-row: 3;
+  margin: 3px 0;
+}
+
+.currentUserName p {
+  margin: 0;
+}
+
+.filterDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+select {
+  max-width: 16rem;
+}
+
+#login_a_element {
+  color: blue;
+  text-decoration: underline;
+}
+
+.bookContainer {
+  background-color: beige;
+  padding: 0.6rem;
+  margin-top: 10px;
+  border-radius: 1rem;
+  border: solid black 2px;
+}
+
+.bookContainer p {
+  margin: 3px 3px;
+}
+
+.bookContainer .title {
+  font-weight: bold;
+}
+
+.quantityDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.quantity {
+  max-width: 3rem;
+  max-height: 1.3rem;
+  border-radius: 1px;
+}
+
+.addToCartButton {
+  margin: 0;
+}
+
+#noResultsDiv {
+  font-size: 150%;
+  font-weight: bold;
+  background-color: beige;
+  padding: 0.6rem 100px;
+  margin-top: 10px;
+  border-radius: 1rem;
+  border: solid black 2px;
+  max-width: fit-content;
 }

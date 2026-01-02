@@ -35,7 +35,7 @@ export class RegisterController {
           hashedPassword,
         ]
       )
-      req.session.flash = {type: 'success', text: 'Account successfully created.'}
+      req.session.flash = {type: 'success', text: 'Account successfully created. Please log in.'}
       res.redirect('./login')
     } else {
       res.render('./register', {
