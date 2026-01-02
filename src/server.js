@@ -1,6 +1,6 @@
 import express from 'express'
 import session from 'express-session'
-import mysql from 'mysql2/promise'
+import expressLayouts from 'express-ejs-layouts'
 
 import {router} from './routes/router.js'
 import {dirname, join} from 'node:path'
@@ -14,6 +14,10 @@ const baseURL = process.env.BASE_URL || '/'
 
 app.set('view engine', 'ejs')
 app.set('views', join(directoryFullName, 'views'))
+app.set('layout', join(directoryFullName, 'views', 'layouts', 'default'))
+app.set('layout extractScripts', true)
+app.set('layout extractStyles', true)
+app.use(expressLayouts)
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))

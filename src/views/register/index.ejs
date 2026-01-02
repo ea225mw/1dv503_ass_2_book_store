@@ -1,66 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <base href="<%= baseURL %>">
-  <title>Member Registration</title>
-  <link rel="stylesheet" href="./css/styles.css">
-  <script src="./js/register.js" type="module"></script>
-</head>
-
-<body>
-
-  <main>
-    <%- include('../partials/header') %>
-      <%- include('../partials/navigation') %>
-
-        <div id="registerWrapper">
-          <h2>Register new user</h2>
-          <form action="./register" method="post" id="registerForm">
-            <label for="firstName">First name</label>
-            <input type="text" name="firstName" value="<%= formData?.firstName || '' %>" required>
-            <label for=" lastName">Last name</label>
-            <input type="text" name="lastName" value="<%= formData?.lastName || '' %>" required>
-            <label for="address">Address (Street)</label>
-            <input type="text" name="address" value="<%= formData?.address || '' %>" required>
-            <label for="city">City</label>
-            <input type="text" name="city" value="<%= formData?.city || '' %>" required>
-            <label for="zipCode">Zip code (XXXXX)</label>
-            <input type="text" name="zipCode" value="<%= formData?.zipCode || '' %>" required>
-            <% if (errors?.zipCodeError) { %>
+<div id="registerWrapper">
+  <h2>Register new user</h2>
+  <form action="./register" method="post" id="registerForm">
+    <label for="firstName">First name</label>
+    <input type="text" name="firstName" value="<%= formData?.firstName || '' %>" required>
+    <label for=" lastName">Last name</label>
+    <input type="text" name="lastName" value="<%= formData?.lastName || '' %>" required>
+    <label for="address">Address (Street)</label>
+    <input type="text" name="address" value="<%= formData?.address || '' %>" required>
+    <label for="city">City</label>
+    <input type="text" name="city" value="<%= formData?.city || '' %>" required>
+    <label for="zipCode">Zip code (XXXXX)</label>
+    <input type="text" name="zipCode" value="<%= formData?.zipCode || '' %>" required>
+    <% if (errors?.zipCodeError) { %>
+      <div class="errorMessage">
+        <%= errors.zipCodeError %>
+      </div>
+      <% } %>
+        <label for="phone">Phone number</label>
+        <input type="text" name="phone" value="<%= formData?.phone || '' %>">
+        <label for="email">E-mail</label>
+        <input type="text" name="email" value="<%= formData?.email || '' %>" required>
+        <% if (errors?.emailError) { %>
+          <div class="errorMessage">
+            <%= errors.emailError %>
+          </div>
+          <% } %>
+            <% if (errors?.emailAlreadyRegisteredError) { %>
               <div class="errorMessage">
-                <%= errors.zipCodeError %>
+                <%= errors.emailAlreadyRegisteredError %>
               </div>
               <% } %>
-                <label for="phone">Phone number</label>
-                <input type="text" name="phone" value="<%= formData?.phone || '' %>">
-                <label for="email">E-mail</label>
-                <input type="text" name="email" value="<%= formData?.email || '' %>" required>
-                <% if (errors?.emailError) { %>
+                <label for="password">Password</label>
+                <input type="password" name="password" value="<%= formData?.password || '' %>" required>
+                <button type="submit" id="registerButton">Register</button>
+                <% if (errors?.lengthErrors) { %>
                   <div class="errorMessage">
-                    <%= errors.emailError %>
+                    <%= errors.lengthErrors %>
                   </div>
                   <% } %>
-                    <% if (errors?.emailAlreadyRegisteredError) { %>
-                      <div class="errorMessage">
-                        <%= errors.emailAlreadyRegisteredError %>
-                      </div>
-                      <% } %>
-                        <label for="password">Password</label>
-                        <input type="password" name="password" value="<%= formData?.password || '' %>" required>
-                        <button type="submit" id="registerButton">Register</button>
-                        <% if (errors?.lengthErrors) { %>
-                          <div class="errorMessage">
-                            <%= errors.lengthErrors %>
-                          </div>
-                          <% } %>
-          </form>
-        </div>
-        <%- include('../partials/footer') %>
-  </main>
-
-</body>
-
-</html>
+  </form>
+</div>

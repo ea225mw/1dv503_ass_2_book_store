@@ -1,7 +1,7 @@
 main {
   display: grid;
   grid-template-columns: 3rem 80vh 3rem; /* Left margin / Main / Right margin */
-  grid-template-rows: 3rem 3rem 80vh 3rem; /* Header / Navigation / Main / Footer */
+  grid-template-rows: 3rem 3rem 3rem 80vh 3rem; /* Header / Navigation / Flash / Main / Footer */
 }
 
 header {
@@ -68,10 +68,23 @@ input[data-valid='false'] {
 
 footer {
   grid-column: 2;
-  grid-row: 4;
+  grid-row: 5;
 }
 
 .errorMessage {
   margin-top: 0.25rem;
   color: red;
+}
+
+.flash {
+  grid-column: 2;
+  grid-row: 3;
+  border: 2px solid;
+  border-radius: 12px;
+  max-width: fit-content;
+  padding: 0.6rem;
+}
+
+.alert-success {
+  background-color: rgb(198, 251, 120);
 }
