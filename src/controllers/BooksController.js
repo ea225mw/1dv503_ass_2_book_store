@@ -6,9 +6,11 @@ export class BooksController {
     this.search = this.search.bind(this)
   }
 
-  index(req, res, next) {
+  index(req, res) {
     res.render('./books', {
-      viewData: null,
+      viewData: {
+        result: 'default',
+      },
     })
   }
 
@@ -36,19 +38,27 @@ export class BooksController {
   }
 
   async getBooksOnSubjectOnly(subject) {
-    // console.log('Before query in subjectOnly')
     const [rows] = await dbPool.execute('SELECT * FROM books WHERE subject LIKE ? LIMIT 5', [`%${subject}%`])
-    // console.log('After query in subjectOnly')
     return rows
   }
 
   async getBooks(subject, author, title) {
-    // console.log('Before query in getBooks')
+    if (subject === 'all') {
+      return await this.#getBooksFromAllSubjects(author, title)
+    }
+
     const [rows] = await dbPool.execute(
       'SELECT * FROM books WHERE subject LIKE ? AND author LIKE ? AND title LIKE ? LIMIT 5',
       [`%${subject}%`, `%${author}%`, `%${title}%`]
     )
-    // console.log('After query in getBooks')
+    return rows
+  }
+
+  async #getBooksFromAllSubjects(author, title) {
+    const [rows] = await dbPool.execute('SELECT * FROM books WHERE author LIKE ? AND title LIKE ? LIMIT 5', [
+      `%${author}%`,
+      `%${title}%`,
+    ])
     return rows
   }
 }

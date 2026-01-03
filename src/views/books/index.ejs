@@ -35,28 +35,29 @@
           <button type="submit">Search catalogue</button>
         </form>
 
-        <% } %>
-          <% if (viewData?.result) { %>
-            <% if (viewData.result.length===0) { %>
-              <div id="noResultsDiv">No results found.</div>
-              <% } %>
-                <% viewData.result.forEach((book)=> { %>
-                  <div class="bookContainer">
-                    <p class="title">
-                      <%= book.title %>
-                    </p>
-                    <p>Author: <%= book.author %>
-                    </p>
-                    <p>ISBN: <%= book.isbn %>
-                    </p>
-                    <p>Price: <%= book.price %> kr
-                    </p>
-                    <p>Subject: <%= book.subject %>
-                    </p>
-                    <div class="quantityDiv"><input type="number" class="quantity"><button type="button"
-                        class="addToCartButton">Add to
-                        cart</button></div>
-                  </div>
-                  <% }) %>
+        <% if (viewData?.result !=='default' ) { %>
+          <% if (viewData?.result.length===0) { %>
+            <div id="noResultsDiv">No results found.</div>
+            <% } else { %>
+              <% viewData.result.forEach((book)=> { %>
+                <div class="bookContainer">
+                  <p class="title">
+                    <%= book.title %>
+                  </p>
+                  <p>Author: <%= book.author %>
+                  </p>
+                  <p>ISBN: <%= book.isbn %>
+                  </p>
+                  <p>Price: <%= book.price %> kr
+                  </p>
+                  <p>Subject: <%= book.subject %>
+                  </p>
+                  <div class="quantityDiv"><input type="number" class="quantity"><button type="button"
+                      class="addToCartButton">Add to
+                      cart</button></div>
+                </div>
+                <% }) %>
+                  <% } %>
                     <% } %>
+                      <% } %>
     </div>
