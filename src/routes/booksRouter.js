@@ -6,4 +6,4 @@ export const router = express.Router()
 const controller = new BooksController()
 
 router.get('/', controller.index)
-router.post('/', controller.search)
+router.get('/search', controller.search)
