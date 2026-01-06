@@ -39,16 +39,23 @@ export class BooksController {
 
     const totalPages = Math.ceil(totalCount / this.#resultsPerPage)
 
-    res.render('./books', {
-      viewData: {
-        subject,
-        author,
-        title,
-        result: books,
-        page: currentPage,
-        totalPages,
-      },
-    })
+    const hasResults = Array.isArray(books)
+    const hasBooks = hasResults && books.length > 0
+    const showPagination = totalPages > 1
+
+    const viewData = {
+      subject,
+      author,
+      title,
+      result: books,
+      page,
+      totalPages,
+      hasResults,
+      hasBooks,
+      showPagination,
+    }
+
+    res.render('./books', {viewData})
   }
 
   async getBooks(subject, author, title, offset = 0) {
