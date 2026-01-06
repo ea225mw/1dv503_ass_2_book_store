@@ -1,0 +1,38 @@
+<div class="bookContainer">
+  <table>
+    <tr>
+      <td>Title:</td>
+      <td class="title">
+        <%= book.title %>
+      </td>
+    </tr>
+    <tr>
+      <td>Author:</td>
+      <td>
+        <%= book.author %>
+      </td>
+    </tr>
+    <tr>
+      <td>ISBN:</td>
+      <td class="isbn">
+        <%= book.isbn %>
+      </td>
+    </tr>
+    <tr>
+      <td>Price:</td>
+      <td>
+        <%= book.price %> kr
+      </td>
+    </tr>
+    <tr>
+      <td>Subject:</td>
+      <td>
+        <%= book.subject %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="quantityDiv"><input type="number" class="quantity" min="0" max="1000"><button type="button"
+      class="addToCartButton">Add to
+      cart</button></div>
+</div>

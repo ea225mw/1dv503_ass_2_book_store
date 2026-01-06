@@ -1,4 +1,5 @@
 import {dbPool} from '../config/database.js'
+import {getCart} from '../util/getCart.js'
 
 export class BooksController {
   #resultsPerPage = 5
@@ -9,9 +10,11 @@ export class BooksController {
   }
 
   index(req, res) {
+    const cart = getCart(Number(req.session.userID))
     res.render('./books', {
       viewData: {
         result: 'default',
+        cart: cart,
       },
     })
   }
