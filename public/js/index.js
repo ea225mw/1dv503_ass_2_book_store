@@ -51,4 +51,6 @@ function updateCartTable(cart) {
     tr.querySelector('.cart_price').textContent = book.price
     cart_tbody.append(templateClone)
   })
+
+  document.querySelector('#totalPriceDiv').textContent = `Total price: ${cart[0].total_price} kr`
 }

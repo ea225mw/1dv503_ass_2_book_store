@@ -237,3 +237,7 @@ select {
   border: solid 2px;
   border-radius: 10px;
 }
+
+#pleaseLogInMessageDiv {
+  margin: 1rem 0;
+}
