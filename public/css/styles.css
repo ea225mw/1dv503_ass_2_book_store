@@ -1,4 +1,5 @@
 body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 18px;
 }
 
@@ -27,12 +28,16 @@ ul {
 }
 
 nav a {
-  color: black;
+  color: blueviolet;
   text-decoration: none;
 }
 
 nav a:visited {
-  color: black;
+  color: blueviolet;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 h1 {
@@ -63,13 +68,6 @@ input[data-valid='false'] {
   border: solid 3px red;
   background-color: rgb(251, 175, 175);
 }
-
-/*
-#registerButton,
-#loginButton {
-  max-width: 150px;
-  margin-top: 1rem;
-}*/
 
 button {
   max-width: 150px;
@@ -111,11 +109,12 @@ footer {
 .currentUserName {
   grid-column: 2;
   grid-row: 3;
-  margin: 3px 0;
+  margin: 1rem 0;
 }
 
 .currentUserName p {
   margin: 0;
+  font-style: italic;
 }
 
 .filterDiv {
@@ -217,10 +216,24 @@ select {
 
 #cartContainer table {
   border-collapse: collapse;
+  background-color: rgb(225, 241, 255);
 }
 
 #cartContainer th,
 #cartContainer td {
   border: solid 1px;
   padding: 2px 8px;
+}
+
+#cartContainer tbody tr:nth-child(odd) {
+  background-color: rgb(214, 236, 255);
+}
+
+#totalPriceDiv {
+  background-color: rgb(214, 236, 255);
+  padding: 5px;
+  margin: 10px 0;
+  font-weight: bold;
+  border: solid 2px;
+  border-radius: 10px;
 }

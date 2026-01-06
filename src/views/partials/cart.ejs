@@ -25,12 +25,16 @@
                   <%= book.qty %>
                 </td>
                 <td class="cart_price">
-                  <%= book.price %>
+                  <%= book.price %> kr
                 </td>
               </tr>
               <% }) %>
           </tbody>
         </table>
-        <% } %>
+        <% if (cart.length!==0) { %>
+          <div id="totalPriceDiv">Total price: <%= cart[0].total_price %>
+          </div>
+          <% } %>
+            <% } %>
   </div>
   <% } %>

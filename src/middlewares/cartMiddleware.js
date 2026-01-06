@@ -21,7 +21,7 @@ export async function cartMiddleware(req, res, next) {
 export async function getCart(userID) {
   const [rows] = await dbPool.execute(
     `
-      SELECT b.isbn, b.title, b.price, c.qty 
+      SELECT b.isbn, b.title, ROUND(b.price, 2) as price, c.qty, ROUND(SUM(b.price * c.qty) OVER (), 2) AS total_price
       FROM books b
       JOIN cart c ON b.isbn = c.isbn
       WHERE c.userid = ?`,
