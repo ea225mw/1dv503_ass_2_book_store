@@ -40,6 +40,7 @@ template.innerHTML = `
 
 function updateCartTable(cart) {
   const cart_tbody = document.querySelector('#cart_tbody')
+  cart_tbody.innerHTML = ''
 
   cart.forEach((book) => {
     const templateClone = template.content.cloneNode(true)

@@ -10,11 +10,14 @@ export class CartController {
     const {isbn, quantity} = req.body
     const userID = Number(req.session.userID)
 
-    const [result] = await dbPool.execute('INSERT INTO `cart` (`userid`, `isbn`, `qty`) VALUES (?, ?, ?)', [
-      userID,
-      isbn,
-      Number(quantity),
-    ])
+    await dbPool.execute(
+      `
+      INSERT INTO cart (userid, isbn, qty)
+      VALUES (?, ?, ?)
+      ON DUPLICATE KEY UPDATE qty = qty + VALUES(qty)
+      `,
+      [userID, isbn, quantity]
+    )
 
     const cart = await getCart(userID)
 
