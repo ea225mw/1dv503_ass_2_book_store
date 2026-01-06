@@ -1,30 +1,18 @@
 <% if (loggedIn) { %>
+  <div id="cartContainer">
+    <h1>Cart</h1>
 
-  <h1>Cart</h1>
+    <table>
+      <thead>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Qty</th>
+        <th>Price</th>
+      </thead>
+      <tbody id="cart_tbody">
 
-  <table>
-    <thead>
-      <th>ISBN</th>
-      <th>Title</th>
-      <th>Qty</th>
-      <th>Price</th>
-    </thead>
-    <tbody id="cart_tbody">
-      <% cart.forEach((book)=> { %>
-        <td>
-          <%= book.isbn %>
-        </td>
-        <td>
-          <%= book.title %>
-        </td>
-        <td>
-          <%= book.qty %>
-        </td>
-        <td>
-          <%= book.price %>
-        </td>
-        <% }) %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
+  </div>
   <% } %>

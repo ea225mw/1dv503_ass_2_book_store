@@ -2,84 +2,98 @@
   <div id="books" class="toMain">
     Please <a href="./login" id="login_a_element">log in</a> to see our books.
   </div>
-  <% } else { %>
-    <div id="cartContainer">
-      <%- include('../partials/cart') %>
-    </div>
+  <% } %>
 
-    <div class="toMain">
+    <div class="toMain flexContainer">
       <% if (loggedIn) { %>
-        <form action="./books/search" method="get">
-          <div class="filterDiv">
-            <label for="subject">Subject</label>
-            <select name="subject" id="subject" value="<%= viewData?.subject %>">
-              <option value="all">All</option>
-              <option value="crime">Crime, Thriller & Mystery</option>
-              <option value="action">Action & Adventure</option>
-              <option value="computing">Computing, Internet & Digital Media</option>
-              <option value="arts">Arts, Film & Photography</option>
-              <option value="language">Language, Linguistics & Writing</option>
-              <option value="romance">Romance</option>
-              <option value="sports">Sports</option>
-              <option value="biographies">Biographies, Diaries & True Accounts</option>
-              <option value="humour">Humour</option>
-              <option value="comics">Comics & Mangas</option>
-              <option value="politics">Politics</option>
-            </select>
-          </div>
-          <div class="filterDiv">
-            <label for="author">Author</label>
-            <input type="text" name="author" value="<%= viewData?.author %>">
-          </div>
-          <div class="filterDiv">
-            <label for="author">Title</label>
-            <input type="text" name="title" value="<%= viewData?.title || '' %>">
-          </div>
-          <button type="submit">Search catalogue</button>
-        </form>
+        <%- include('./filter') %>
 
-        <% if (viewData?.result !=='default' ) { %>
-          <% if (viewData?.result.length===0) { %>
-            <div id="noResultsDiv">No results found.</div>
-            <% } else { %>
-              <% viewData.result.forEach((book)=> { %>
-                <div class="bookContainer">
-                  <p class="title">
-                    <%= book.title %>
-                  </p>
-                  <p>Author: <%= book.author %>
-                  </p>
-                  <p>ISBN: <%= book.isbn %>
-                  </p>
-                  <p>Price: <%= book.price %> kr
-                  </p>
-                  <p>Subject: <%= book.subject %>
-                  </p>
-                  <div class="quantityDiv"><input type="number" class="quantity"><button type="button"
-                      class="addToCartButton">Add to
-                      cart</button></div>
-                </div>
-                <% }) %>
-                  <% } %>
-                    <% } %>
-                      <% if (viewData.totalPages> 1) { %>
-                        <div class="pagination">
-                          <% if (viewData.page> 1) { %>
-                            <a
-                              href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page - 1 %>">
-                              ← Prev
+          <% if (viewData?.result !=='default' ) { %>
+            <% if (viewData?.result.length===0) { %>
+              <div id="noResultsDiv">No results found.</div>
+              <% } else { %>
+                <div class="searchResult">
+                  <% if (viewData.totalPages> 1) { %>
+                    <div class="pagination">
+                      <% if (viewData.page> 1) { %>
+                        <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page - 1 %>"
+                          class="prevButton">
+                          ← Prev
+                        </a>
+                        <% } %>
+
+                          <span>Page <%= viewData.page %> of <%= viewData.totalPages %></span>
+
+                          <% if (viewData.page < viewData.totalPages) { %>
+                            <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page + 1 %>"
+                              class="nextButton">
+                              Next →
                             </a>
                             <% } %>
+                    </div>
+                    <% } %>
 
-                              <span>Page <%= viewData.page %> of <%= viewData.totalPages %></span>
+                      <% viewData.result.forEach((book)=> { %>
+                        <div class="bookContainer">
+                          <table>
+                            <tr>
+                              <td>Title:</td>
+                              <td class="title">
+                                <%= book.title %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Author:</td>
+                              <td>
+                                <%= book.author %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>ISBN:</td>
+                              <td class="isbn">
+                                <%= book.isbn %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Price:</td>
+                              <td>
+                                <%= book.price %> kr
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Subject:</td>
+                              <td>
+                                <%= book.subject %>
+                              </td>
+                            </tr>
+                          </table>
 
-                              <% if (viewData.page < viewData.totalPages) { %>
-                                <a
-                                  href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page + 1 %>">
-                                  Next →
+                          <div class="quantityDiv"><input type="number" class="quantity" min="0" max="1000"><button
+                              type="button" class="addToCartButton">Add to
+                              cart</button></div>
+                        </div>
+                        <% }) %>
+                          <% if (viewData.totalPages> 1) { %>
+                            <div class="pagination">
+                              <% if (viewData.page> 1) { %>
+                                <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page - 1 %>"
+                                  class="prevButton">
+                                  ← Prev
                                 </a>
                                 <% } %>
-                        </div>
-                        <% } %>
-                          <% } %>
+
+                                  <span>Page <%= viewData.page %> of <%= viewData.totalPages %></span>
+
+                                  <% if (viewData.page < viewData.totalPages) { %>
+                                    <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page + 1 %>"
+                                      class="nextButton">
+                                      Next →
+                                    </a>
+                                    <% } %>
+                            </div>
+                            <% } %>
+                </div>
+                <% } %>
+                  <% } %>
+                    <% } %>
     </div>
