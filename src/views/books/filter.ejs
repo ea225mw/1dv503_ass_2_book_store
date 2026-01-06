@@ -1,7 +1,7 @@
 <form action="./books/search" method="get">
   <div class="filterDiv">
     <label for="subject">Subject</label>
-    <select name="subject" id="subject" value="<%= viewData?.subject %>">
+    <select name="subject" id="subject">
       <option value="all">All</option>
       <option value="crime">Crime, Thriller & Mystery</option>
       <option value="action">Action & Adventure</option>
@@ -18,11 +18,11 @@
   </div>
   <div class="filterDiv">
     <label for="author">Author</label>
-    <input type="text" name="author" value="<%= viewData?.author %>">
+    <input type="text" name="author" value="<%= author %>">
   </div>
   <div class="filterDiv">
     <label for="author">Title</label>
-    <input type="text" name="title" value="<%= viewData?.title || '' %>">
+    <input type="text" name="title" value="<%= title || '' %>">
   </div>
   <button type="submit">Search catalogue</button>
 </form>

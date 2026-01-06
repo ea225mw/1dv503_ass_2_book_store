@@ -2,63 +2,29 @@
   <div id="books" class="toMain">
     Please <a href="./login" id="login_a_element">log in</a> to see our books.
   </div>
-  <% } %>
-
+  <% } else { %>
     <div class="toMain flexContainer">
-      <% if (loggedIn) { %>
-        <%- include('./filter') %>
+      <%- include('./filter') %>
 
-          <% if (viewData?.result !=='default' ) { %>
-            <% if (viewData?.result.length===0) { %>
-              <div id="noResultsDiv">No results found.</div>
-              <% } else { %>
-                <div class="searchResult">
-                  <% if (viewData.totalPages> 1) { %>
-                    <div class="pagination">
-                      <% if (viewData.page> 1) { %>
-                        <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page - 1 %>"
-                          class="prevButton">
-                          ← Prev
-                        </a>
-                        <% } %>
+        <% if (hasSearchResults && hasBooks) { %>
+          <div class="searchResult">
 
-                          <span>Page <%= viewData.page %> of <%= viewData.totalPages %></span>
+            <% if (showPagination) { %>
+              <div class="pagination">
+                <%- include('./pagination') %>
+              </div>
+              <% } %>
 
-                          <% if (viewData.page < viewData.totalPages) { %>
-                            <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page + 1 %>"
-                              class="nextButton">
-                              Next →
-                            </a>
-                            <% } %>
-                    </div>
-                    <% } %>
+                <% result.forEach(function (book) { %>
+                  <%- include('./container', { book }) %>
+                    <% }) %>
 
-                      <% viewData.result.forEach((book)=> { %>
-                        <div class="bookContainer">
-                          <%- include('./container', {book}) %>
-                        </div>
-                        <% }) %>
-                          <% if (viewData.totalPages> 1) { %>
-                            <div class="pagination">
-                              <% if (viewData.page> 1) { %>
-                                <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page - 1 %>"
-                                  class="prevButton">
-                                  ← Prev
-                                </a>
-                                <% } %>
+                      <% if (showPagination) { %>
+                        <%- include('./pagination') %>
+                          <% } %>
 
-                                  <span>Page <%= viewData.page %> of <%= viewData.totalPages %></span>
-
-                                  <% if (viewData.page < viewData.totalPages) { %>
-                                    <a href="./books/search?subject=<%= viewData.subject %>&author=<%= viewData.author %>&title=<%= viewData.title %>&page=<%= viewData.page + 1 %>"
-                                      class="nextButton">
-                                      Next →
-                                    </a>
-                                    <% } %>
-                            </div>
-                            <% } %>
-                </div>
-                <% } %>
-                  <% } %>
-                    <% } %>
+          </div>
+          <% } %>
     </div>
+
+    <% } %>

@@ -10,9 +10,15 @@ export class BooksController {
 
   index(req, res) {
     res.render('./books', {
-      viewData: {
-        result: 'default',
-      },
+      subject: '',
+      author: '',
+      title: '',
+      result: 'noSearchDoneYet',
+      page: null,
+      totalPages: null,
+      hasSearchResults: false,
+      hasBooks: false,
+      showPagination: false,
     })
   }
 
@@ -39,23 +45,25 @@ export class BooksController {
 
     const totalPages = Math.ceil(totalCount / this.#resultsPerPage)
 
-    const hasResults = Array.isArray(books)
-    const hasBooks = hasResults && books.length > 0
+    const hasSearchResults = Array.isArray(books)
+    const hasBooks = hasSearchResults && books.length > 0
     const showPagination = totalPages > 1
 
     const viewData = {
-      subject,
-      author,
-      title,
+      subject: subject,
+      author: author,
+      title: title,
       result: books,
-      page,
-      totalPages,
-      hasResults,
-      hasBooks,
-      showPagination,
+      page: currentPage,
+      totalPages: totalPages,
+      hasSearchResults: hasSearchResults,
+      hasBooks: hasBooks,
+      showPagination: showPagination,
     }
 
-    res.render('./books', {viewData})
+    console.log(viewData)
+
+    res.render('./books', viewData)
   }
 
   async getBooks(subject, author, title, offset = 0) {
