@@ -6,6 +6,7 @@ import {router} from './routes/router.js'
 import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {sessionOptions} from './config/sessionOptions.js'
+import {cartMiddleware} from './middlewares/cartMiddleware.js'
 
 const app = express()
 
@@ -37,6 +38,8 @@ app.use((req, res, next) => {
   res.locals.currentUserName = req.session.currentUserName
   next()
 })
+
+app.use(cartMiddleware)
 
 app.use('/', router)
 

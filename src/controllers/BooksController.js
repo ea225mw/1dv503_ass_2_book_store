@@ -61,8 +61,6 @@ export class BooksController {
       showPagination: showPagination,
     }
 
-    console.log(viewData)
-
     res.render('./books', viewData)
   }
 

@@ -1,5 +1,5 @@
 import {dbPool} from '../config/database.js'
-import {getCart} from '../util/getCart.js'
+import {getCart} from '../middlewares/cartMiddleware.js'
 
 export class CartController {
   constructor() {
@@ -17,6 +17,7 @@ export class CartController {
     ])
 
     const cart = await getCart(userID)
+
     res.json(cart)
   }
 }
