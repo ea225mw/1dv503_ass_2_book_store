@@ -1,10 +1,6 @@
-body {
-  font-size: 18px;
-}
-
 main {
   display: grid;
-  grid-template-columns: 3rem auto 50rem 3rem; /* Left margin / Main / Cart / Right margin */
+  grid-template-columns: 3rem 80vh 3rem; /* Left margin / Main / Right margin */
   grid-template-rows: 3rem 2rem auto auto minmax(80vh, auto) 3rem; /* Header / Navigation / Logged in as / Flash / Main / Footer */
 }
 
@@ -79,7 +75,7 @@ button {
 footer {
   grid-column: 2;
   grid-row: 6;
-  margin-top: 2rem;
+  margin-top: 10px;
 }
 
 .errorMessage {
@@ -175,52 +171,4 @@ select {
   border-radius: 1rem;
   border: solid black 2px;
   max-width: fit-content;
-  max-height: fit-content;
-}
-
-.pagination {
-  margin-top: 10px;
-}
-
-.pagination span {
-  margin: 0 0.5rem;
-}
-
-.prevButton,
-.nextButton {
-  border: solid black 1px;
-  padding: 3px 8px;
-  text-decoration: none;
-  background-color: lightblue;
-  color: white;
-}
-
-.flexContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 4rem;
-}
-
-#cartContainer {
-  grid-column: 3;
-  grid-row: 1 / 6;
-  max-height: 40rem;
-  overflow-y: auto;
-  background-color: beige;
-  padding: 1rem;
-  border: solid 2px;
-}
-
-#cartContainer h1 {
-  font-size: 1.4rem;
-}
-
-#cartContainer table {
-  border-collapse: collapse;
-}
-
-#cartContainer th,
-#cartContainer td {
-  border: solid 1px;
-  padding: 2px 8px;
 }

@@ -27,9 +27,9 @@ export class BooksController {
     const currentPage = Math.max(1, parseInt(page, 10) || 1)
     const offset = (currentPage - 1) * this.#resultsPerPage
 
-    // console.log(req.query)
-    // console.log(subject, author, title, currentPage, offset)
-    // console.log(typeof subject, typeof author, typeof title, typeof currentPage, typeof offset)
+    console.log(req.query)
+    console.log(subject, author, title, currentPage, offset)
+    console.log(typeof subject, typeof author, typeof title, typeof currentPage, typeof offset)
 
     let books
     let totalCount
@@ -83,7 +83,7 @@ export class BooksController {
   }
 
   async getBooksFromAllSubjects(author, title, offset = 0) {
-    // console.log('Hello from getBooksFromAllSubjects')
+    console.log('Hello from getBooksFromAllSubjects')
     const limit = Number(this.#resultsPerPage)
     const safeOffset = Number(offset)
 
@@ -107,8 +107,8 @@ export class BooksController {
       [`${author}%`, `%${title}%`, limit, safeOffset]
     )
 
-    // console.log('safeOffset', safeOffset)
-    // console.log('rows', rows)
+    console.log('safeOffset', safeOffset)
+    console.log('rows', rows)
 
     return [rows, count]
   }

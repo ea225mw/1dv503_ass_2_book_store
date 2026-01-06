@@ -41,6 +41,7 @@ app.use((req, res, next) => {
 app.use('/', router)
 
 const server = app.listen(process.env.PORT, () => {
+  console.log('PORT: ', process.env.PORT)
   console.log(`Server running at http://localhost:${server.address().port}`)
   console.log('Press Ctrl-C to terminate...')
 })

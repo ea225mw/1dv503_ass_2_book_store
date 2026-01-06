@@ -21,7 +21,7 @@ export class LoginController {
         req.session.regenerate(() => {
           req.session.userID = user.userid
           req.session.currentUserName = user.fname
-          res.redirect('./books')
+          res.redirect('./')
         })
       }
     }
