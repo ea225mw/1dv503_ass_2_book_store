@@ -19,5 +19,63 @@
           <% }) %>
       </tbody>
     </table>
+    <% if (invoice) { %>
+      <div id="invoice">
+        <div id="invoiceHeaderDiv">
+          <h1>Invoice, order number <%= invoice.orderNumber %>
+          </h1>
+          <button type="button" id="closeInvoiceButton">Close</button>
+        </div>
+
+        <h2>Shipping address:</h2>
+        <ul>
+          <li>
+            <%= invoice.fname %>
+              <%= invoice.lname %>
+          </li>
+          <li>
+            <%= invoice.street %>
+          </li>
+          <li>
+            <%= invoice.zip %>
+              <%= invoice.city %>
+          </li>
+        </ul>
+        <h2>Order:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Unit price</th>
+              <th class="centeredColumn">Quantity</th>
+              <th>Sum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% invoice.lineItems.forEach(function (lineItem) { %>
+              <tr>
+                <td>
+                  <%= lineItem.isbn %>
+                </td>
+                <td>
+                  <%= lineItem.title %>
+                </td>
+                <td>
+                  <%= lineItem.price %>
+                </td>
+                <td>
+                  <%= lineItem.qty %>
+                </td>
+                <td>
+                  <%= lineItem.amount %>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+        <div id="orderTotalDiv">Order total: <%= invoice.orderTotal %> kr</div>
+      </div>
+      <% } %>
   </div>
   <% } %>

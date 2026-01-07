@@ -1,24 +1,35 @@
 <nav>
-  <ul>
-    <li>
-      <a href="./">Home</a>
-    </li>
-    <% if (!loggedIn) { %>
+  <div>
+    <ul>
       <li>
-        <a href="./register">Register</a>
+        <a href="./">Home</a>
       </li>
-      <li>
-        <a href="./login">Log in</a>
-      </li>
-      <% } else { %>
+      <% if (!loggedIn) { %>
         <li>
-          <a href="./order">My orders</a>
+          <a href="./register">Register</a>
         </li>
         <li>
-          <a href="./logout">Log out</a>
+          <a href="./login">Log in</a>
         </li>
-        <% } %>
-          <li><a href="./books">Books</a></li>
-  </ul>
+        <% } else { %>
+          <li>
+            <a href="./order">My orders</a>
+          </li>
+          <li>
+            <a href="./logout">Log out</a>
+          </li>
+          <% } %>
+            <li><a href="./books">Books</a></li>
+    </ul>
+  </div>
+  <% if (loggedIn) { %>
+    <div>
+      <ul>
+        <li id="showCartNavHeader">
+          Cart
+        </li>
+      </ul>
+    </div>
+    <% } %>
 
 </nav>

@@ -26,7 +26,9 @@ cartTableTemplate.innerHTML = `
 const totalPriceDivTemplate = document.createElement('template')
 totalPriceDivTemplate.innerHTML = `
 <div id="totalPriceDiv"></div>
-<button type="button" id="placeOrderButton">Place order</button>
+<form action="./order" method="post">
+  <button type="submit" id="placeOrderButton">Place order</button>
+</form>
 `
 
 const emailInput = document.querySelector('input[name="email"]')
@@ -81,6 +83,7 @@ function updateCartTable(cart) {
   })
 
   document.querySelector('#totalPriceDiv').textContent = `Total price: ${cart[0].total_price} kr`
+  checkCartVisibility()
 }
 
 function createCartTableIfNotPresent() {
@@ -92,4 +95,11 @@ function createCartTableIfNotPresent() {
 
   const totalPriceDiv = totalPriceDivTemplate.content.cloneNode(true)
   document.querySelector('#cartContainer').append(totalPriceDiv)
+}
+
+function checkCartVisibility() {
+  const cartContainer = document.querySelector('#cartContainer')
+  if (!cartContainer.classList.contains('visible')) {
+    cartContainer.classList.toggle('visible')
+  }
 }

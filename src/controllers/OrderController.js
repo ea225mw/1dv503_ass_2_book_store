@@ -14,7 +14,7 @@ export class OrderController {
     allOrders.forEach((order) => {
       order.created = order.created.toISOString().slice(0, 10)
     })
-    res.render('orders', {allOrders: allOrders})
+    res.render('orders', {allOrders: allOrders, invoice: null})
   }
 
   async getUsersOrders(userID) {
@@ -30,10 +30,12 @@ export class OrderController {
     await this.writeToOrderDetails(orderNumber, cart)
     const allOrders = await this.getUsersOrders(userID)
 
-    await this.createInvoice(orderNumber)
+    const invoice = await this.createInvoice(orderNumber)
     await this.emptyUsersCart(userID)
 
-    res.render('orders', {allOrders: allOrders, invoice: null})
+    console.log('Invoice: ', invoice)
+
+    res.render('orders', {allOrders: allOrders, invoice: invoice})
   }
 
   async writeToOrders(userID) {
@@ -71,19 +73,28 @@ export class OrderController {
   async createInvoice(orderNumber) {
     const [allOrderDetails] = await dbPool.execute(
       `
-      SELECT od.ono, od.isbn, b.title, b.price, od.qty, od.amount, o.created, o.shipAddress, o.shipCity, o.shipZip FROM odetails od
+      SELECT od.ono, od.isbn, b.title, ROUND(b.price, 2) as price, od.qty, od.amount, o.created, m.fname, m.lname, o.shipAddress, o.shipCity, o.shipZip,
+      SUM(od.amount) OVER (PARTITION BY od.ono) AS orderTotal 
+      FROM odetails od
       JOIN orders o ON od.ono = o.ono
       JOIN books b ON od.isbn = b.isbn
+      JOIN members m ON o.userid = m.userid
       WHERE od.ono = ?`,
       [orderNumber]
     )
+
+    console.log(allOrderDetails)
+
     let invoiceData = {
       orderNumber: allOrderDetails[0].ono,
       created: allOrderDetails[0].created,
+      fname: allOrderDetails[0].fname,
+      lname: allOrderDetails[0].lname,
       street: allOrderDetails[0].shipAddress,
       city: allOrderDetails[0].shipCity,
       zip: allOrderDetails[0].shipZip,
       lineItems: [],
+      orderTotal: allOrderDetails[0].orderTotal,
     }
 
     allOrderDetails.forEach((lineItem) => {
@@ -97,6 +108,6 @@ export class OrderController {
       })
     })
 
-    console.log(invoiceData)
+    return invoiceData
   }
 }

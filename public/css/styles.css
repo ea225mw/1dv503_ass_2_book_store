@@ -17,9 +17,11 @@ header {
 nav {
   grid-column: 2;
   grid-row: 2;
+  display: flex;
+  gap: 2rem;
 }
 
-ul {
+nav ul {
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -27,7 +29,8 @@ ul {
   padding-left: 0;
 }
 
-nav a {
+nav a,
+nav li {
   color: blueviolet;
   text-decoration: none;
 }
@@ -200,6 +203,19 @@ select {
   gap: 4rem;
 }
 
+#cartContainer.visible {
+  grid-column: 3;
+  grid-row: 1 / 6;
+  max-height: 40rem;
+  overflow-y: auto;
+  background-color: beige;
+  padding: 1rem;
+  border: solid 2px;
+  transform: scale(1);
+  transition: 0.5s;
+  transform-origin: 100% 0%;
+}
+
 #cartContainer {
   grid-column: 3;
   grid-row: 1 / 6;
@@ -208,10 +224,14 @@ select {
   background-color: beige;
   padding: 1rem;
   border: solid 2px;
+  transform: scale(0);
+  transition: 0.5s;
+  transform-origin: 100% 0%;
 }
 
 #cartContainer h1 {
   font-size: 1.4rem;
+  margin: 0;
 }
 
 #cartContainer table {
@@ -265,4 +285,64 @@ select {
 #placeOrderButton:hover {
   cursor: pointer;
   background: rgb(0, 180, 0);
+}
+#invoice {
+  border: solid black;
+  max-width: fit-content;
+  padding: 1rem;
+}
+
+#invoice h1 {
+  margin: 0;
+}
+
+#invoice h2 {
+  margin-bottom: 0.3rem;
+}
+
+#invoice ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+#invoice th {
+  text-align: left;
+  padding-right: 1rem;
+}
+
+#invoice td {
+  padding-right: 1rem;
+}
+
+#orderTotalDiv {
+  font-size: 150%;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+#invoiceHeaderDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#invoiceHeaderDiv button {
+  max-height: 2rem;
+}
+
+#cartHeaderDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+#cartHeaderDiv button {
+  margin: 0;
+}
+
+#showCartNavHeader:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }

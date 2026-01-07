@@ -1,6 +1,9 @@
 <% if (loggedIn) { %>
-  <div id="cartContainer">
-    <h1>Cart</h1>
+  <div id="cartContainer" class="hidden">
+    <div id="cartHeaderDiv">
+      <h1>Cart</h1>
+      <button type="button">Close</button>
+    </div>
     <% if (cart.length===0) { %>
       <div id="noItemsInCartDiv">No items in cart</div>
       <% } %>
@@ -38,7 +41,10 @@
         <% if (cart.length!==0) { %>
           <div id="totalPriceDiv">Total price: <%= cart[0].total_price %> kr
           </div>
-          <button type="button" id="placeOrderButton">Place order</button>
+          <form action="./order" method="post">
+            <button type="submit" id="placeOrderButton">Place order</button>
+          </form>
+
           <% } %>
   </div>
   <% } %>
