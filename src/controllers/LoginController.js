@@ -4,9 +4,9 @@ import {dbPool} from '../config/database.js'
 export class LoginController {
   index(req, res, next) {
     if (!req.session.userID) {
-      res.render('./login')
+      res.render('login')
     } else {
-      res.render('./home')
+      res.render('home')
     }
   }
 

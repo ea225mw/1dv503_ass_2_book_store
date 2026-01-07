@@ -38,7 +38,7 @@ export class RegisterController {
       req.session.flash = {type: 'success', text: 'Account successfully created. Please log in.'}
       res.redirect('./login')
     } else {
-      res.render('./register', {
+      res.render('register', {
         errors: this.#errorsToBeReported,
         formData: req.body,
       })

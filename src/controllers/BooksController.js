@@ -61,7 +61,7 @@ export class BooksController {
       showPagination: showPagination,
     }
 
-    res.render('./books', viewData)
+    res.render('books', viewData)
   }
 
   async getBooks(subject, author, title, offset = 0) {

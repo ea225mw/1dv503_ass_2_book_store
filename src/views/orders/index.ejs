@@ -1,0 +1,23 @@
+<% if (loggedIn) { %>
+  <div class="toMain myOrdersDiv">
+    <h2>My orders</h2>
+    <table id="ordersTable">
+      <thead>
+        <th>Order date</th>
+        <th>Order number</th>
+      </thead>
+      <tbody>
+        <% allOrders.forEach(function (order) { %>
+          <tr>
+            <td>
+              <%= order.created %>
+            </td>
+            <td class="centeredColumn">
+              <%= order.ono %>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } %>

@@ -241,3 +241,23 @@ select {
 #pleaseLogInMessageDiv {
   margin: 1rem 0;
 }
+
+#ordersTable th {
+  padding-right: 0.8rem;
+}
+
+.myOrdersDiv h2 {
+  color: blueviolet;
+}
+
+.centeredColumn {
+  text-align: center;
+}
+
+#placeOrderButton {
+  padding: 8px;
+  font-size: 120%;
+  background: green;
+  color: white;
+  border-radius: 12px;
+}
