@@ -30,6 +30,10 @@ export class OrderController {
     await this.writeToOrderDetails(orderNumber, cart)
     const allOrders = await this.getUsersOrders(userID)
 
+    allOrders.forEach((order) => {
+      order.created = order.created.toISOString().slice(0, 10)
+    })
+
     const invoice = await this.createInvoice(orderNumber)
     await this.emptyUsersCart(userID)
 

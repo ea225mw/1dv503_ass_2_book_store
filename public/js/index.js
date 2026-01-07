@@ -58,7 +58,6 @@ async function sendDataToCart(event) {
   })
 
   const cart = await response.json()
-  console.log('cart: ', cart)
 
   updateCartTable(cart)
 }
