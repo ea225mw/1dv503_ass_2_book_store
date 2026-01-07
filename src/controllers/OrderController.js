@@ -11,28 +11,34 @@ export class OrderController {
     const userID = Number(req.session.userID)
     const cart = await getCart(userID)
 
-    await this.writeToOrders(userID)
-    // await this.writeToOrderDetails(cart)
+    const orderNumber = await this.writeToOrders(userID)
+    await this.writeToOrderDetails(orderNumber, cart)
+    // res.render('./orders')
   }
 
   async writeToOrders(userID) {
-    // console.log(typeof userID)
     const createdDate = new Date().toISOString().slice(0, 10)
 
-    const [userData] = await dbPool.execute(`SELECT * FROM members WHERE userid = ?`, [userID])
-    const member = userData[0]
+    const [userInfo] = await dbPool.execute(`SELECT * FROM members WHERE userid = ?`, [userID])
+    const member = userInfo[0]
 
-    console.log(userID, createdDate, member.address, member.city, member.zip)
-
-    await dbPool.execute(
+    const [result] = await dbPool.execute(
       `INSERT INTO orders (userid, created, shipAddress, shipCity, shipZip) VALUES (?, ?, ?, ?, ?)`,
       [userID, createdDate, member.address, member.city, member.zip]
     )
+    return result.insertId // Order number
   }
 
-  async writeToOrderDetails(cart) {
-    cart.forEach(async (book) => {
-      await dbPool.execute()
+  async writeToOrderDetails(orderNumber, cart) {
+    cart.forEach(async (lineItem) => {
+      await dbPool.execute(`INSERT INTO odetails (ono, isbn, qty, amount) VALUES (?, ?, ?, ?)`, [
+        orderNumber,
+        lineItem.isbn,
+        lineItem.qty,
+        lineItem.line_total,
+      ])
     })
   }
+
+  async emptyUsersCart(userID) {}
 }

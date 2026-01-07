@@ -13,14 +13,14 @@ const email = document.querySelector('input[name="email"]')
 const password = document.querySelector('input[name="password"]')
 
 function autoFillTestData() {
-  firstName.value = 'Calle'
-  lastName.value = 'Martinsson'
-  address.value = 'Ystadvägen 140'
-  city.value = 'Johanneshov'
-  zipCode.value = '98765'
-  phone.value = '0730598762'
-  email.value = 'calle@martinson.se'
-  password.value = 'KalleAnkasFarmor'
+  firstName.value = 'Emanuel'
+  lastName.value = 'Andersen'
+  address.value = 'Skvadronsbacken 61A'
+  city.value = 'Sundbyberg'
+  zipCode.value = '17456'
+  phone.value = '0730521972'
+  email.value = 'emanuel@andersen.se'
+  password.value = 'Emanuel'
 }
 
 autoFillTestData()

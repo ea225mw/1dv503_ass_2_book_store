@@ -48,7 +48,7 @@ function updateCartTable(cart) {
     tr.querySelector('.cart_isbn').textContent = book.isbn
     tr.querySelector('.cart_title').textContent = book.title
     tr.querySelector('.cart_qty').textContent = book.qty
-    tr.querySelector('.cart_price').textContent = book.price
+    tr.querySelector('.cart_price').textContent = book.price + ' kr'
     cart_tbody.append(templateClone)
   })
 
