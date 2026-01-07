@@ -34,10 +34,8 @@ export class OrderController {
       order.created = order.created.toISOString().slice(0, 10)
     })
 
-    const invoice = await this.createInvoice(orderNumber)
+    const invoice = await this.createInvoiceData(orderNumber)
     await this.emptyUsersCart(userID)
-
-    console.log('Invoice: ', invoice)
 
     res.render('orders', {allOrders: allOrders, invoice: invoice})
   }
@@ -74,7 +72,7 @@ export class OrderController {
     await dbPool.execute(`DELETE FROM cart WHERE userid = ?`, [userID])
   }
 
-  async createInvoice(orderNumber) {
+  async createInvoiceData(orderNumber) {
     const [allOrderDetails] = await dbPool.execute(
       `
       SELECT od.ono, od.isbn, b.title, ROUND(b.price, 2) as price, od.qty, od.amount, o.created, m.fname, m.lname, o.shipAddress, o.shipCity, o.shipZip,
@@ -87,11 +85,10 @@ export class OrderController {
       [orderNumber]
     )
 
-    console.log(allOrderDetails)
-
     let invoiceData = {
       orderNumber: allOrderDetails[0].ono,
-      created: allOrderDetails[0].created,
+      created: allOrderDetails[0].created.toISOString().slice(0, 10),
+      delivery: this.calculateDeliveryDate(allOrderDetails[0].created),
       fname: allOrderDetails[0].fname,
       lname: allOrderDetails[0].lname,
       street: allOrderDetails[0].shipAddress,
@@ -113,5 +110,11 @@ export class OrderController {
     })
 
     return invoiceData
+  }
+
+  calculateDeliveryDate(orderDate) {
+    const deliveryDate = new Date(orderDate)
+    deliveryDate.setDate(deliveryDate.getDate() + 7)
+    return deliveryDate.toISOString().slice(0, 10)
   }
 }

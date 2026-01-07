@@ -27,6 +27,18 @@
             </h1>
             <button type="button" id="closeInvoiceButton">Close</button>
           </div>
+          <h2>Order date:</h2>
+          <ul>
+            <li>
+              <%= invoice.created %>
+            </li>
+          </ul>
+          <h2>Estimated delivery:</h2>
+          <ul>
+            <li>
+              <%= invoice.delivery %>
+            </li>
+          </ul>
           <h2>Shipping address:</h2>
           <ul>
             <li>

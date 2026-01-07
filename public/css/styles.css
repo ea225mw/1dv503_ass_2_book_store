@@ -315,6 +315,10 @@ select {
   padding-right: 1rem;
 }
 
+#invoice tr:nth-child(even) {
+  background-color: rgb(237, 237, 237);
+}
+
 #orderTotalDiv {
   font-size: 150%;
   font-weight: bold;
