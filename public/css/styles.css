@@ -261,3 +261,8 @@ select {
   color: white;
   border-radius: 12px;
 }
+
+#placeOrderButton:hover {
+  cursor: pointer;
+  background: rgb(0, 180, 0);
+}

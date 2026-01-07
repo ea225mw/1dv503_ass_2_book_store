@@ -1,3 +1,34 @@
+let cart_tbody
+
+const cartRowTemplate = document.createElement('template')
+cartRowTemplate.innerHTML = `
+<tr>
+  <td class="cart_isbn"></td>
+    <td class="cart_title"></td>
+      <td class="cart_qty"></td>
+        <td class="cart_price"></td>
+</tr>`
+
+const cartTableTemplate = document.createElement('template')
+cartTableTemplate.innerHTML = `
+<table>
+  <thead>
+    <th>ISBN</th>
+    <th>Title</th>
+    <th>Qty</th>
+    <th>Price</th>
+  </thead>
+  <tbody id="cart_tbody">
+  </tbody>
+</table>
+`
+
+const totalPriceDivTemplate = document.createElement('template')
+totalPriceDivTemplate.innerHTML = `
+<div id="totalPriceDiv"></div>
+<button type="button" id="placeOrderButton">Place order</button>
+`
+
 const emailInput = document.querySelector('input[name="email"]')
 if (emailInput) emailInput.focus()
 
@@ -25,32 +56,40 @@ async function sendDataToCart(event) {
   })
 
   const cart = await response.json()
+  console.log('cart: ', cart)
 
   updateCartTable(cart)
 }
 
-const template = document.createElement('template')
-template.innerHTML = `
-<tr>
-  <td class="cart_isbn"></td>
-    <td class="cart_title"></td>
-      <td class="cart_qty"></td>
-        <td class="cart_price"></td>
-</tr>`
-
 function updateCartTable(cart) {
-  const cart_tbody = document.querySelector('#cart_tbody')
+  cart_tbody = document.querySelector('#cart_tbody')
+
+  if (!cart_tbody) {
+    createCartTableIfNotPresent()
+  }
+
   cart_tbody.innerHTML = ''
 
   cart.forEach((book) => {
-    const templateClone = template.content.cloneNode(true)
-    const tr = templateClone.querySelector('tr')
+    const row = cartRowTemplate.content.cloneNode(true)
+    const tr = row.querySelector('tr')
     tr.querySelector('.cart_isbn').textContent = book.isbn
     tr.querySelector('.cart_title').textContent = book.title
     tr.querySelector('.cart_qty').textContent = book.qty
     tr.querySelector('.cart_price').textContent = book.price + ' kr'
-    cart_tbody.append(templateClone)
+    cart_tbody.append(row)
   })
 
   document.querySelector('#totalPriceDiv').textContent = `Total price: ${cart[0].total_price} kr`
+}
+
+function createCartTableIfNotPresent() {
+  console.log('cart_tbody: ', cart_tbody)
+  const cartTable = cartTableTemplate.content.cloneNode(true)
+  document.querySelector('#noItemsInCartDiv').remove()
+  document.querySelector('#cartTableWrapper').append(cartTable)
+  cart_tbody = document.querySelector('#cart_tbody')
+
+  const totalPriceDiv = totalPriceDivTemplate.content.cloneNode(true)
+  document.querySelector('#cartContainer').append(totalPriceDiv)
 }
