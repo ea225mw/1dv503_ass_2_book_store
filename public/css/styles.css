@@ -6,26 +6,30 @@ body {
 #mainWrapper {
   min-height: 98vh;
   display: grid;
-  grid-template-columns: 3rem auto 50rem 3rem;
+  grid-template-columns: 3rem auto auto 50rem 3rem; /* Left margin / Flash / MAIN / Cart / Right margin */
   grid-template-rows:
     3rem        /* Header */
     2rem        /* Navigation */
-    auto        /* Logged in as */
-    auto        /* Flash */
+    2rem      /* Logged in as */
     1fr         /* Main (tar resten) */
     3rem;       /* Footer */
 }
 
 header {
-  grid-column: 2;
+  grid-column: 2 / 4;
   grid-row: 1;
 }
 
+header h1 {
+  margin: 0;
+}
+
 nav {
-  grid-column: 2;
+  grid-column: 2 / 4;
   grid-row: 2;
   display: flex;
   gap: 2rem;
+  align-items: center;
 }
 
 nav ul {
@@ -57,7 +61,7 @@ h1 {
 #registerWrapper,
 #loginFormWrapper {
   grid-column: 2;
-  grid-row: 5;
+  grid-row: 4;
 }
 
 form {
@@ -85,8 +89,8 @@ button {
 }
 
 footer {
-  grid-column: 2;
-  grid-row: 6;
+  grid-column: 2 / 4;
+  grid-row: 5;
   margin-top: 2rem;
 }
 
@@ -99,8 +103,8 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  grid-column: 2;
-  grid-row: 3;
+  grid-column: 3 / 4 ;
+  grid-row: 1;
   border: 2px solid;
   border-radius: 12px;
   max-width: fit-content;
@@ -112,19 +116,16 @@ footer {
 }
 
 .toMain {
-  grid-column: 2;
-  grid-row: 5;
+  grid-column: 2 / 5;
+  grid-row: 4;
 }
 
 .currentUserName {
   grid-column: 2;
   grid-row: 3;
-  margin: 1rem 0;
-}
-
-.currentUserName p {
   margin: 0;
   font-style: italic;
+  align-self: center;
 }
 
 .filterDiv {
@@ -211,7 +212,7 @@ select {
 }
 
 #cartContainer.visible {
-  grid-column: 3;
+  grid-column: 4;
   grid-row: 1 / 6;
   max-height: 40rem;
   overflow-y: auto;
@@ -225,7 +226,7 @@ select {
 
 #cartContainer {
   grid-column: 3;
-  grid-row: 1 / 6;
+  grid-row: 1 / 4;
   max-height: 40rem;
   overflow-y: auto;
   background-color: beige;
