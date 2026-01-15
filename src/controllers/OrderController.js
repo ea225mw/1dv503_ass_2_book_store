@@ -109,7 +109,6 @@ export class OrderController {
         amount: amount,
       })
     })
-
     return invoiceData
   }
 
@@ -121,13 +120,13 @@ export class OrderController {
 
   async searchForOrder(req, res) {
     const orderNumber = Number(req.body.orderNumber)
-    const userID = Number(req.session.userID)
+    // const userID = Number(req.session.userID)
 
     const invoiceData = await this.createInvoiceData(orderNumber)
-    const allOrders = await this.getUsersOrders(userID)
-    allOrders.forEach((order) => {
-      order.created = order.created.toISOString().slice(0, 10)
-    })
+    // const allOrders = await this.getUsersOrders(userID)
+    // allOrders.forEach((order) => {
+    //   order.created = order.created.toISOString().slice(0, 10)
+    // })
 
     res.json(invoiceData)
   }
