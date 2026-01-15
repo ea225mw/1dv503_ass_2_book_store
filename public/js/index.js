@@ -4,9 +4,10 @@ const cartRowTemplate = document.createElement('template')
 cartRowTemplate.innerHTML = `
 <tr>
   <td class="cart_isbn"></td>
-    <td class="cart_title"></td>
-      <td class="cart_qty"></td>
-        <td class="cart_price"></td>
+  <td class="cart_title"></td>
+  <td class="cart_price"></td>
+  <td class="cart_qty"></td>
+  <td class="cart_sum"></td>
 </tr>`
 
 const cartTableTemplate = document.createElement('template')
@@ -15,8 +16,9 @@ cartTableTemplate.innerHTML = `
   <thead>
     <th>ISBN</th>
     <th>Title</th>
-    <th>Qty</th>
     <th>Price</th>
+    <th>Quantity</th>
+    <th>Sum</th>
   </thead>
   <tbody id="cart_tbody">
   </tbody>
@@ -76,8 +78,9 @@ function updateCartTable(cart) {
     const tr = row.querySelector('tr')
     tr.querySelector('.cart_isbn').textContent = book.isbn
     tr.querySelector('.cart_title').textContent = book.title
-    tr.querySelector('.cart_qty').textContent = book.qty
     tr.querySelector('.cart_price').textContent = book.price + ' kr'
+    tr.querySelector('.cart_qty').textContent = book.qty
+    tr.querySelector('.cart_sum').textContent = book.line_total
     cart_tbody.append(row)
   })
 

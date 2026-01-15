@@ -14,8 +14,9 @@
               <thead>
                 <th>ISBN</th>
                 <th>Title</th>
-                <th>Qty</th>
                 <th>Price</th>
+                <th>Quantity</th>
+                <th>Sum</th>
               </thead>
               <tbody id="cart_tbody">
                 <% cart.forEach(function (book) { %>
@@ -26,11 +27,14 @@
                     <td class="cart_title">
                       <%= book.title %>
                     </td>
+                    <td class="cart_price">
+                      <%= book.price %> kr
+                    </td>
                     <td class="cart_qty">
                       <%= book.qty %>
                     </td>
-                    <td class="cart_price">
-                      <%= book.price %> kr
+                    <td class="cart_sum">
+                      <%= book.line_total %> kr
                     </td>
                   </tr>
                   <% }) %>

@@ -42,9 +42,9 @@ lineItemsTemplate.innerHTML = `
 <tr>
   <td class="invoiceISBN"></td>
   <td class="invoiceBookTitle"></td>
-  <td class="invoiceBookPrice"></td>
+  <td class="invoiceBookPrice noLineBreak"></td>
   <td class="invoiceQuantity"></td>
-  <td class="invoiceAmount"></td>
+  <td class="invoiceAmount noLineBreak"></td>
 </tr>
 `
 
@@ -88,7 +88,7 @@ function createSelectedInvoice(invoiceData) {
     tr.querySelector('.invoiceAmount').textContent = `${item.amount} kr`
     invoiceDiv.querySelector('tbody').append(tr)
   })
-document.querySelector('.myOrdersAndInvoiceDiv').append(invoiceDiv)
+document.querySelector('.ordersTableAndInvoiceDiv').append(invoiceDiv)
 }
 
 function initCloseButton() {

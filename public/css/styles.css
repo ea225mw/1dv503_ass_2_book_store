@@ -4,9 +4,16 @@ body {
 }
 
 #mainWrapper {
+  min-height: 98vh;
   display: grid;
-  grid-template-columns: 3rem auto 50rem 3rem; /* Left margin / Main / Cart / Right margin */
-  grid-template-rows: 3rem 2rem auto auto minmax(80vh, auto) 3rem; /* Header / Navigation / Logged in as / Flash / Main / Footer */
+  grid-template-columns: 3rem auto 50rem 3rem;
+  grid-template-rows:
+    3rem        /* Header */
+    2rem        /* Navigation */
+    auto        /* Logged in as */
+    auto        /* Flash */
+    1fr         /* Main (tar resten) */
+    3rem;       /* Footer */
 }
 
 header {
@@ -266,6 +273,7 @@ select {
   border-collapse: collapse;
   align-self: flex-start;
   min-width: 260px;
+  flex-shrink: 0;
 }
 
 #ordersTable th {
@@ -365,4 +373,8 @@ select {
   cursor: pointer;
   background-color: blue;
   color: white;
+}
+
+.noLineBreak {
+  white-space: nowrap;
 }

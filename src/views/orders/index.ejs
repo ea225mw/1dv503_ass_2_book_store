@@ -1,94 +1,92 @@
-<% if (loggedIn) { %>
-  <div class="toMain myOrdersDiv">
-    <h2>My orders</h2>
-    <div class="flexContainer myOrdersAndInvoiceDiv">
-      <table id="ordersTable">
-        <thead>
-          <th>Order date</th>
-          <th>Order number</th>
-        </thead>
-        <tbody>
-          <% allOrders.forEach(function (order) { %>
-            <tr data-ono="<%= order.ono %>">
-              <td>
-                <%= order.created %>
-              </td>
-              <td class="centeredColumn">
-                <%= order.ono %>
-              </td>
-            </tr>
-            <% }) %>
-        </tbody>
-      </table>
-      <% if (invoice) { %>
-        <div id="invoice">
-          <div id="invoiceHeaderDiv">
-            <h1>Invoice, order number <%= invoice.orderNumber %>
-            </h1>
-            <button type="button" id="closeInvoiceButton">Close</button>
-          </div>
-          <h2>Order date:</h2>
-          <ul>
-            <li>
-              <%= invoice.created %>
-            </li>
-          </ul>
-          <h2>Estimated delivery:</h2>
-          <ul>
-            <li>
-              <%= invoice.delivery %>
-            </li>
-          </ul>
-          <h2>Shipping address:</h2>
-          <ul>
-            <li>
-              <%= invoice.fname %>
-                <%= invoice.lname %>
-            </li>
-            <li>
-              <%= invoice.street %>
-            </li>
-            <li>
-              <%= invoice.zip %>
-                <%= invoice.city %>
-            </li>
-          </ul>
-          <h2>Order:</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>ISBN</th>
-                <th>Title</th>
-                <th>Unit price</th>
-                <th class="centeredColumn">Quantity</th>
-                <th>Sum</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% invoice.lineItems.forEach(function (lineItem) { %>
-                <tr>
-                  <td>
-                    <%= lineItem.isbn %>
-                  </td>
-                  <td>
-                    <%= lineItem.title %>
-                  </td>
-                  <td>
-                    <%= lineItem.price %>
-                  </td>
-                  <td>
-                    <%= lineItem.qty %>
-                  </td>
-                  <td>
-                    <%= lineItem.amount %>
-                  </td>
-                </tr>
-                <% }) %>
-            </tbody>
-          </table>
-          <div id="orderTotalDiv">Order total: <%= invoice.orderTotal %> kr</div>
+<div class="toMain myOrdersDiv">
+  <h2>My orders</h2>
+  <div class="flexContainer ordersTableAndInvoiceDiv">
+    <table id="ordersTable">
+      <thead>
+        <th>Order date</th>
+        <th>Order number</th>
+      </thead>
+      <tbody>
+        <% allOrders.forEach(function (order) { %>
+          <tr data-ono="<%= order.ono %>">
+            <td>
+              <%= order.created %>
+            </td>
+            <td class="centeredColumn">
+              <%= order.ono %>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+    <% if (invoice) { %>
+      <div id="invoice">
+        <div id="invoiceHeaderDiv">
+          <h1>Invoice, order number <%= invoice.orderNumber %>
+          </h1>
+          <button type="button" id="closeInvoiceButton">Close</button>
         </div>
-    </div>
-    <% } %>
+        <h2>Order date:</h2>
+        <ul>
+          <li>
+            <%= invoice.created %>
+          </li>
+        </ul>
+        <h2>Estimated delivery:</h2>
+        <ul>
+          <li>
+            <%= invoice.delivery %>
+          </li>
+        </ul>
+        <h2>Shipping address:</h2>
+        <ul>
+          <li>
+            <%= invoice.fname %>
+              <%= invoice.lname %>
+          </li>
+          <li>
+            <%= invoice.street %>
+          </li>
+          <li>
+            <%= invoice.zip %>
+              <%= invoice.city %>
+          </li>
+        </ul>
+        <h2>Order:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Unit price</th>
+              <th class="centeredColumn">Quantity</th>
+              <th>Sum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% invoice.lineItems.forEach(function (lineItem) { %>
+              <tr>
+                <td>
+                  <%= lineItem.isbn %>
+                </td>
+                <td>
+                  <%= lineItem.title %>
+                </td>
+                <td class="noLineBreak">
+                  <%= lineItem.price %> kr
+                </td>
+                <td>
+                  <%= lineItem.qty %>
+                </td>
+                <td class="noLineBreak">
+                  <%= lineItem.amount %> kr
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+        <div id="orderTotalDiv">Order total: <%= invoice.orderTotal %> kr</div>
+      </div>
+      <% } %>
   </div>
-  <% } %>
+</div>
