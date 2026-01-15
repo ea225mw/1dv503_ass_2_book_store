@@ -86,7 +86,6 @@ function updateCartTable(cart) {
 }
 
 function createCartTableIfNotPresent() {
-  console.log('cart_tbody: ', cart_tbody)
   const cartTable = cartTableTemplate.content.cloneNode(true)
   document.querySelector('#noItemsInCartDiv').remove()
   document.querySelector('#cartTableWrapper').append(cartTable)
@@ -101,4 +100,13 @@ function checkCartVisibility() {
   if (!cartContainer.classList.contains('visible')) {
     cartContainer.classList.toggle('visible')
   }
+}
+
+const closeInvoiceButton = document.querySelector('#closeInvoiceButton')
+
+if (closeInvoiceButton) {
+  closeInvoiceButton.addEventListener('click', () => {
+    console.log('Remove!')
+    document.querySelector('#invoice').remove()
+  })
 }

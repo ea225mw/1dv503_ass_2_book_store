@@ -7,3 +7,4 @@ const controller = new OrderController()
 
 router.get('/', controller.index)
 router.post('/', controller.placeOrder)
+router.post('/getinvoice', controller.searchForOrder)

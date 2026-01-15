@@ -6,6 +6,7 @@ export class OrderController {
     this.placeOrder = this.placeOrder.bind(this)
     this.writeToOrders = this.writeToOrders.bind(this)
     this.index = this.index.bind(this)
+    this.searchForOrder = this.searchForOrder.bind(this)
   }
 
   async index(req, res, next) {
@@ -14,7 +15,7 @@ export class OrderController {
     allOrders.forEach((order) => {
       order.created = order.created.toISOString().slice(0, 10)
     })
-    res.render('orders', {allOrders: allOrders, invoice: null})
+    res.render('orders', {allOrders: allOrders, invoice: null, test: null})
   }
 
   async getUsersOrders(userID) {
@@ -34,10 +35,10 @@ export class OrderController {
       order.created = order.created.toISOString().slice(0, 10)
     })
 
-    const invoice = await this.createInvoiceData(orderNumber)
+    const invoiceData = await this.createInvoiceData(orderNumber)
     await this.emptyUsersCart(userID)
 
-    res.render('orders', {allOrders: allOrders, invoice: invoice})
+    res.render('orders', {allOrders: allOrders, invoice: invoiceData})
   }
 
   async writeToOrders(userID) {
@@ -116,5 +117,18 @@ export class OrderController {
     const deliveryDate = new Date(orderDate)
     deliveryDate.setDate(deliveryDate.getDate() + 7)
     return deliveryDate.toISOString().slice(0, 10)
+  }
+
+  async searchForOrder(req, res) {
+    const orderNumber = Number(req.body.orderNumber)
+    const userID = Number(req.session.userID)
+
+    const invoiceData = await this.createInvoiceData(orderNumber)
+    const allOrders = await this.getUsersOrders(userID)
+    allOrders.forEach((order) => {
+      order.created = order.created.toISOString().slice(0, 10)
+    })
+
+    res.render('orders', {allOrders: allOrders, invoice: invoiceData, test: 'Kaka'})
   }
 }

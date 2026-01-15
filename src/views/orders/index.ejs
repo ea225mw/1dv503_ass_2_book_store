@@ -9,7 +9,7 @@
         </thead>
         <tbody>
           <% allOrders.forEach(function (order) { %>
-            <tr>
+            <tr data-ono="<%= order.ono %>">
               <td>
                 <%= order.created %>
               </td>

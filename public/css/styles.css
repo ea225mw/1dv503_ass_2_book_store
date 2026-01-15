@@ -262,6 +262,10 @@ select {
   margin: 1rem 0;
 }
 
+#ordersTable {
+  border-collapse: collapse;
+}
+
 #ordersTable th {
   padding-right: 0.8rem;
 }
@@ -349,4 +353,14 @@ select {
 #showCartNavHeader:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+#ordersTable tr:nth-child(even) {
+  background-color: rgba(137, 43, 226, 0.1);
+}
+
+#ordersTable tr:hover {
+  cursor: pointer;
+  background-color: blue;
+  color: white;
 }
