@@ -129,6 +129,6 @@ export class OrderController {
       order.created = order.created.toISOString().slice(0, 10)
     })
 
-    res.render('orders', {allOrders: allOrders, invoice: invoiceData, test: 'Kaka'})
+    res.json(invoiceData)
   }
 }

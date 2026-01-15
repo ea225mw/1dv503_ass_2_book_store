@@ -3,7 +3,7 @@ body {
   font-size: 18px;
 }
 
-main {
+#mainWrapper {
   display: grid;
   grid-template-columns: 3rem auto 50rem 3rem; /* Left margin / Main / Cart / Right margin */
   grid-template-rows: 3rem 2rem auto auto minmax(80vh, auto) 3rem; /* Header / Navigation / Logged in as / Flash / Main / Footer */
@@ -264,6 +264,8 @@ select {
 
 #ordersTable {
   border-collapse: collapse;
+  align-self: flex-start;
+  min-width: 260px;
 }
 
 #ordersTable th {
@@ -359,7 +361,7 @@ select {
   background-color: rgba(137, 43, 226, 0.1);
 }
 
-#ordersTable tr:hover {
+#ordersTable tbody tr:hover {
   cursor: pointer;
   background-color: blue;
   color: white;
