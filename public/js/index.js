@@ -78,7 +78,6 @@ const closeInvoiceButton = document.querySelector('#closeInvoiceButton')
 
 if (closeInvoiceButton) {
   closeInvoiceButton.addEventListener('click', () => {
-    console.log('Remove!')
     document.querySelector('#invoice').remove()
   })
 }

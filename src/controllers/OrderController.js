@@ -13,7 +13,7 @@ export class OrderController {
     const userID = Number(req.session.userID)
     const allOrders = await this.getUsersOrders(userID)
     allOrders.forEach((order) => {
-      order.created = order.created.toISOString().slice(0, 10)
+      order.created = order.created.toLocaleDateString('sv-SE')
     })
     res.render('orders', {allOrders: allOrders, invoice: null, test: null})
   }
@@ -32,7 +32,7 @@ export class OrderController {
     const allOrders = await this.getUsersOrders(userID)
 
     allOrders.forEach((order) => {
-      order.created = order.created.toISOString().slice(0, 10)
+      order.created = order.created.toLocaleDateString('sv-SE')
     })
 
     const invoiceData = await this.createInvoiceData(orderNumber)
@@ -42,7 +42,7 @@ export class OrderController {
   }
 
   async writeToOrders(userID) {
-    const createdDate = new Date().toISOString().slice(0, 10)
+    const createdDate = new Date().toLocaleDateString('sv-SE')
 
     const member = await this.getMember(userID)
 
@@ -76,7 +76,7 @@ export class OrderController {
   async createInvoiceData(orderNumber) {
     const [allOrderDetails] = await dbPool.execute(
       `
-      SELECT od.ono, od.isbn, b.title, ROUND(b.price, 2) as price, od.qty, od.amount, o.created, m.fname, m.lname, o.shipAddress, o.shipCity, o.shipZip,
+      SELECT od.ono, od.isbn, b.title, ROUND(b.price, 2) as price, od.qty, od.amount, DATE(o.created) AS created, m.fname, m.lname, o.shipAddress, o.shipCity, o.shipZip,
       SUM(od.amount) OVER (PARTITION BY od.ono) AS orderTotal 
       FROM odetails od
       JOIN orders o ON od.ono = o.ono
@@ -88,7 +88,7 @@ export class OrderController {
 
     let invoiceData = {
       orderNumber: allOrderDetails[0].ono,
-      created: allOrderDetails[0].created.toISOString().slice(0, 10),
+      created: allOrderDetails[0].created.toLocaleDateString('sv-SE'),
       delivery: this.calculateDeliveryDate(allOrderDetails[0].created),
       fname: allOrderDetails[0].fname,
       lname: allOrderDetails[0].lname,
@@ -115,18 +115,13 @@ export class OrderController {
   calculateDeliveryDate(orderDate) {
     const deliveryDate = new Date(orderDate)
     deliveryDate.setDate(deliveryDate.getDate() + 7)
-    return deliveryDate.toISOString().slice(0, 10)
+    return deliveryDate.toLocaleDateString('sv-SE')
   }
 
   async searchForOrder(req, res) {
     const orderNumber = Number(req.body.orderNumber)
-    // const userID = Number(req.session.userID)
 
     const invoiceData = await this.createInvoiceData(orderNumber)
-    // const allOrders = await this.getUsersOrders(userID)
-    // allOrders.forEach((order) => {
-    //   order.created = order.created.toISOString().slice(0, 10)
-    // })
 
     res.json(invoiceData)
   }

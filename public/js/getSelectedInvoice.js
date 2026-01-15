@@ -15,7 +15,6 @@ if (orderTable) {
       body: JSON.stringify({orderNumber: row.dataset.ono}),
     })
     const invoiceData = await response.json();
-    console.log(invoiceData);
     createSelectedInvoice(invoiceData)
     initCloseButton()
   })
@@ -27,7 +26,7 @@ function createSelectedInvoice(invoiceData) {
   invoiceDiv.querySelector('h1').textContent = `Invoice, order number ${invoiceData.orderNumber}`
   invoiceDiv.querySelector('.invoiceCreated').textContent = `${invoiceData.created}`
   invoiceDiv.querySelector('.invoiceDelivery').textContent = `${invoiceData.delivery}`
-  invoiceDiv.querySelector('.invoiceName').textContent = `${invoiceData.fName} ${invoiceData.lName}`
+  invoiceDiv.querySelector('.invoiceName').textContent = `${invoiceData.fname} ${invoiceData.lname}`
   invoiceDiv.querySelector('.invoiceStreet').textContent = `${invoiceData.street}`
   invoiceDiv.querySelector('.invoiceZipAndCity').textContent = `${invoiceData.zip} ${invoiceData.city}`
   invoiceDiv.querySelector('#orderTotalDiv').textContent = `Order total: ${invoiceData.orderTotal} kr`
