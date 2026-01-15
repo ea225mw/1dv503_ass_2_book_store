@@ -379,3 +379,7 @@ select {
 .noLineBreak {
   white-space: nowrap;
 }
+
+.invoiceBookTitle {
+  max-width: 800px;
+}

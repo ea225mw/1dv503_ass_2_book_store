@@ -4,7 +4,7 @@
   </div>
   <% } else { %>
     <div class="toMain flexContainer">
-      <%- include('./filter') %>
+      <%- include('./filter', {subject}) %>
 
         <% if (hasSearchResults && hasBooks) { %>
           <div class="searchResult">

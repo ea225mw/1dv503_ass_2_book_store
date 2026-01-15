@@ -43,6 +43,8 @@ app.use(cartMiddleware)
 
 app.use('/', router)
 
+// app.use(err, req, res, next) {}
+
 const server = app.listen(process.env.PORT, () => {
   console.log(`Server running at http://localhost:${server.address().port}`)
   console.log('Press Ctrl-C to terminate...')
