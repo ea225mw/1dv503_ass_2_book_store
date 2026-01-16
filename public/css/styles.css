@@ -8,11 +8,11 @@ body {
   display: grid;
   grid-template-columns: 3rem auto auto 50rem 3rem; /* Left margin / Flash / MAIN / Cart / Right margin */
   grid-template-rows:
-    3rem        /* Header */
-    2rem        /* Navigation */
-    2rem      /* Logged in as */
-    1fr         /* Main (tar resten) */
-    3rem;       /* Footer */
+    3rem /* Header */
+    2rem /* Navigation */
+    2rem /* Logged in as */
+    1fr /* Main (tar resten) */
+    3rem; /* Footer */
 }
 
 header {
@@ -231,8 +231,8 @@ select {
 }
 
 #cartContainer {
-  grid-column: 3;
-  grid-row: 1 / 4;
+  grid-column: 4;
+  grid-row: 1 / 6;
   max-height: 40rem;
   overflow-y: auto;
   background-color: beige;
