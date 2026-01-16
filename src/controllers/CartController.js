@@ -15,7 +15,7 @@ export class CartController {
         `
         INSERT INTO cart (userid, isbn, qty)
         VALUES (?, ?, ?)
-        ON DUPLICATE KEY UPDATE qty = qty + VALUES(qty)
+        ON DUPLICATE KEY UPDATE qty = VALUES(qty)
         `,
         [userID, isbn, quantity]
       )
