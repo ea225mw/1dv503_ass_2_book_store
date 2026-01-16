@@ -43,7 +43,7 @@ export class OrderController {
     const invoiceData = await this.createInvoiceData(orderNumber)
     await this.emptyUsersCart(userID)
 
-    res.render('orders', {allOrders: allOrders, invoice: invoiceData})
+    res.redirect(`/order/${orderNumber}/invoice`)
   }
 
   async writeToOrders(userID) {
