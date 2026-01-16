@@ -76,7 +76,7 @@ export class BooksController {
       )
 
       const [rows] = await dbPool.query(
-      `SELECT *
+        `SELECT *
       FROM books
       WHERE subject LIKE ?
         AND author LIKE ?
@@ -88,8 +88,8 @@ export class BooksController {
       )
       return [rows, count]
     } catch (error) {
-        req.session.flash = { type: 'warning', text: error.message }
-        next(error)
+      req.session.flash = {type: 'warning', text: error.message}
+      next(error)
     }
   }
 

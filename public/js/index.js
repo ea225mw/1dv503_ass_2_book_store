@@ -1,4 +1,4 @@
-import { cartRowTemplate, cartTableTemplate, totalPriceDivTemplate  } from "./templates.js"
+import {cartRowTemplate, cartTableTemplate, totalPriceDivTemplate} from './templates.js'
 
 let cart_tbody
 

@@ -21,7 +21,7 @@ export class OrderController {
   async getUsersOrders(userID) {
     try {
       const [allOrders] = await dbPool.execute(`SELECT * FROM orders WHERE userid = ?`, [userID])
-    return allOrders
+      return allOrders
     } catch (error) {
       next(error)
     }
@@ -61,29 +61,21 @@ export class OrderController {
     }
   }
 
-async writeToOrderDetails(orderNumber, cart) {
-  if (cart.length === 0) return;
-  
-  try {
-    //Placeholders: (?, ?, ?, ?), (?, ?, ?, ?), ...
-    const placeholders = cart.map(() => '(?, ?, ?, ?)').join(', ')
-  
-    // Make array
-    const values = cart.flatMap(item => [
-      orderNumber,
-      item.isbn,
-      item.qty,
-      item.line_total
-    ])
-    
-    await dbPool.execute(
-      `INSERT INTO odetails (ono, isbn, qty, amount) VALUES ${placeholders}`,
-      values
-    )  
-  } catch (error) {
-    next(error)
+  async writeToOrderDetails(orderNumber, cart) {
+    if (cart.length === 0) return
+
+    try {
+      //Placeholders: (?, ?, ?, ?), (?, ?, ?, ?), ...
+      const placeholders = cart.map(() => '(?, ?, ?, ?)').join(', ')
+
+      // Make array
+      const values = cart.flatMap((item) => [orderNumber, item.isbn, item.qty, item.line_total])
+
+      await dbPool.execute(`INSERT INTO odetails (ono, isbn, qty, amount) VALUES ${placeholders}`, values)
+    } catch (error) {
+      next(error)
+    }
   }
-}
 
   async getMember(userID) {
     try {
@@ -105,7 +97,7 @@ async writeToOrderDetails(orderNumber, cart) {
   async createInvoiceData(orderNumber) {
     try {
       const [allOrderDetails] = await dbPool.execute(
-      `
+        `
       SELECT od.ono, od.isbn, b.title, ROUND(b.price, 2) as price, od.qty, od.amount, DATE(o.created) AS created, m.fname, m.lname, o.shipAddress, o.shipCity, o.shipZip,
       SUM(od.amount) OVER (PARTITION BY od.ono) AS orderTotal 
       FROM odetails od
@@ -113,30 +105,30 @@ async writeToOrderDetails(orderNumber, cart) {
       JOIN books b ON od.isbn = b.isbn
       JOIN members m ON o.userid = m.userid
       WHERE od.ono = ?`,
-      [orderNumber]
+        [orderNumber]
       )
 
       let invoiceData = {
-      orderNumber: allOrderDetails[0].ono,
-      created: allOrderDetails[0].created.toLocaleDateString('sv-SE'),
-      delivery: this.calculateDeliveryDate(allOrderDetails[0].created),
-      fname: allOrderDetails[0].fname,
-      lname: allOrderDetails[0].lname,
-      street: allOrderDetails[0].shipAddress,
-      city: allOrderDetails[0].shipCity,
-      zip: allOrderDetails[0].shipZip,
-      lineItems: [],
-      orderTotal: allOrderDetails[0].orderTotal,
+        orderNumber: allOrderDetails[0].ono,
+        created: allOrderDetails[0].created.toLocaleDateString('sv-SE'),
+        delivery: this.calculateDeliveryDate(allOrderDetails[0].created),
+        fname: allOrderDetails[0].fname,
+        lname: allOrderDetails[0].lname,
+        street: allOrderDetails[0].shipAddress,
+        city: allOrderDetails[0].shipCity,
+        zip: allOrderDetails[0].shipZip,
+        lineItems: [],
+        orderTotal: allOrderDetails[0].orderTotal,
       }
 
       allOrderDetails.forEach((lineItem) => {
-      const {isbn, title, qty, price, amount} = lineItem
-      invoiceData.lineItems.push({
-        isbn: isbn,
-        title: title,
-        qty: qty,
-        price: price,
-        amount: amount,
+        const {isbn, title, qty, price, amount} = lineItem
+        invoiceData.lineItems.push({
+          isbn: isbn,
+          title: title,
+          qty: qty,
+          price: price,
+          amount: amount,
         })
       })
       return invoiceData

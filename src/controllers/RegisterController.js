@@ -46,7 +46,7 @@ export class RegisterController {
         this.#errorsToBeReported = {}
       }
     } catch (error) {
-        next(error)
+      next(error)
     }
   }
 

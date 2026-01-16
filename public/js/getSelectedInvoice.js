@@ -1,4 +1,4 @@
-import { invoiceTemplate, lineItemsTemplate } from "./templates.js"
+import {invoiceTemplate, lineItemsTemplate} from './templates.js'
 
 let closeInvoiceButton
 
@@ -14,7 +14,7 @@ if (orderTable) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({orderNumber: row.dataset.ono}),
     })
-    const invoiceData = await response.json();
+    const invoiceData = await response.json()
     createSelectedInvoice(invoiceData)
     initCloseButton()
   })
