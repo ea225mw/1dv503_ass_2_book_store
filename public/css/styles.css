@@ -376,8 +376,11 @@ select {
   background-color: rgba(137, 43, 226, 0.1);
 }
 
-#ordersTable tbody tr:hover {
-  cursor: pointer;
+#ordersTable a:visited {
+  color: blue;
+}
+
+#ordersTable a:hover {
   background-color: blue;
   color: white;
 }

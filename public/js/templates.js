@@ -30,7 +30,7 @@ totalPriceDivTemplate.innerHTML = `
   <button type="submit" id="placeOrderButton">Place order</button>
 </form>
 `
-
+/*
 export const invoiceTemplate = document.createElement('template')
 invoiceTemplate.innerHTML = `
 <div id="invoice">
@@ -79,3 +79,4 @@ lineItemsTemplate.innerHTML = `
   <td class="invoiceAmount noLineBreak"></td>
 </tr>
 `
+*/

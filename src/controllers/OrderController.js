@@ -7,6 +7,7 @@ export class OrderController {
     this.writeToOrders = this.writeToOrders.bind(this)
     this.index = this.index.bind(this)
     this.searchForOrder = this.searchForOrder.bind(this)
+    this.getInvoice = this.getInvoice.bind(this)
   }
 
   async index(req, res, next) {
@@ -15,7 +16,7 @@ export class OrderController {
     allOrders.forEach((order) => {
       order.created = order.created.toLocaleDateString('sv-SE')
     })
-    res.render('orders', {allOrders: allOrders, invoice: null, test: null})
+    res.render('orders', {allOrders: allOrders, invoice: req.invoice})
   }
 
   async getUsersOrders(userID) {
@@ -94,7 +95,13 @@ export class OrderController {
     }
   }
 
-  async createInvoiceData(orderNumber) {
+  async getInvoice(req, res, next, id) {
+    const invoiceData = await this.createInvoiceData(id)
+    req.invoice = invoiceData
+    next()
+  }
+
+  async createInvoiceData(ono) {
     try {
       const [allOrderDetails] = await dbPool.execute(
         `
@@ -105,10 +112,10 @@ export class OrderController {
       JOIN books b ON od.isbn = b.isbn
       JOIN members m ON o.userid = m.userid
       WHERE od.ono = ?`,
-        [orderNumber]
+        [ono]
       )
 
-      let invoiceData = {
+      const invoiceData = {
         orderNumber: allOrderDetails[0].ono,
         created: allOrderDetails[0].created.toLocaleDateString('sv-SE'),
         delivery: this.calculateDeliveryDate(allOrderDetails[0].created),
@@ -133,6 +140,7 @@ export class OrderController {
       })
       return invoiceData
     } catch (error) {
+      console.log(error)
       next(error)
     }
   }
@@ -144,6 +152,7 @@ export class OrderController {
   }
 
   async searchForOrder(req, res) {
+    console.log('Hello from searchForOrder')
     const orderNumber = Number(req.body.orderNumber)
 
     const invoiceData = await this.createInvoiceData(orderNumber)

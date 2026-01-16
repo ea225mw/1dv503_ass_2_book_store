@@ -11,7 +11,9 @@
           <% allOrders.forEach(function (order) { %>
             <tr data-ono="<%= order.ono %>">
               <td>
-                <%= order.created %>
+                <a href="./order/<%= order.ono %>/invoice">
+                  <%= order.created %>
+                </a>
               </td>
               <td class="centeredColumn">
                 <%= order.ono %>
