@@ -18,4 +18,4 @@ function autoFillTestData() {
   password.value = 'Emanuel'
 }
 
-// autoFillTestData()
+autoFillTestData()

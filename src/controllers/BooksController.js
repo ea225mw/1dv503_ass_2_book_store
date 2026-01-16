@@ -67,8 +67,8 @@ export class BooksController {
 
       const [[{count}]] = await dbPool.execute(
         `SELECT COUNT(*) AS count
-      FROM books
-      WHERE subject LIKE ?
+        FROM books
+        WHERE subject LIKE ?
         AND author LIKE ?
         AND title LIKE ?
       `,
@@ -76,7 +76,7 @@ export class BooksController {
       )
 
       const [rows] = await dbPool.query(
-        `SELECT *
+      `SELECT *
       FROM books
       WHERE subject LIKE ?
         AND author LIKE ?
@@ -88,34 +88,39 @@ export class BooksController {
       )
       return [rows, count]
     } catch (error) {
-      next(error)
+        req.session.flash = { type: 'warning', text: error.message }
+        next(error)
     }
   }
 
   async getBooksFromAllSubjects(author, title, offset = 0) {
-    const limit = Number(this.#resultsPerPage)
-    const safeOffset = Number(offset)
+    try {
+      const limit = Number(this.#resultsPerPage)
+      const safeOffset = Number(offset)
 
-    const [[{count}]] = await dbPool.execute(
-      `SELECT COUNT(*) AS count
-    FROM books
-    WHERE author LIKE ?
-      AND title LIKE ?
-    `,
-      [`${author}%`, `%${title}%`]
-    )
+      const [[{count}]] = await dbPool.execute(
+        `SELECT COUNT(*) AS count
+      FROM books
+      WHERE author LIKE ?
+        AND title LIKE ?
+      `,
+        [`${author}%`, `%${title}%`]
+      )
 
-    const [rows] = await dbPool.query(
-      `SELECT *
-    FROM books
-    WHERE author LIKE ?
-      AND title LIKE ?
-      ORDER BY title
-    LIMIT ? OFFSET ?
-    `,
-      [`${author}%`, `%${title}%`, limit, safeOffset]
-    )
+      const [rows] = await dbPool.query(
+        `SELECT *
+      FROM books
+      WHERE author LIKE ?
+        AND title LIKE ?
+        ORDER BY title
+      LIMIT ? OFFSET ?
+      `,
+        [`${author}%`, `%${title}%`, limit, safeOffset]
+      )
 
-    return [rows, count]
+      return [rows, count]
+    } catch (error) {
+      next(error)
+    }
   }
 }

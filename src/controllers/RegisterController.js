@@ -5,44 +5,48 @@ export class RegisterController {
   #errorsToBeReported = {}
 
   index(req, res, next) {
-    res.render('./register', {
+    res.render('register', {
       errors: null,
       formData: {},
     })
   }
 
   async registerNewMember(req, res, next) {
-    const {firstName, lastName, address, city, zipCode, phone, email, password} = req.body
+    try {
+      const {firstName, lastName, address, city, zipCode, phone, email, password} = req.body
 
-    const isEmailNotRegistered = await this.#checkIfEmailIsNotRegistered(email)
-    const isZipCodeValid = this.#validateZipCode(zipCode)
-    const isEmailValid = this.#validateEmail(email)
-    const isLengthsValid = this.#validateLengths(firstName, lastName, address, city, password)
+      const isEmailNotRegistered = await this.#checkIfEmailIsNotRegistered(email)
+      const isZipCodeValid = this.#validateZipCode(zipCode)
+      const isEmailValid = this.#validateEmail(email)
+      const isLengthsValid = this.#validateLengths(firstName, lastName, address, city, password)
 
-    const hashedPassword = await this.#hashPassword(password)
+      const hashedPassword = await this.#hashPassword(password)
 
-    if (isEmailNotRegistered && isZipCodeValid && isEmailValid && isLengthsValid) {
-      await dbPool.execute(
-        'INSERT INTO members(fname, lname, address, city, zip, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [
-          firstName.trim(),
-          lastName.trim(),
-          address.trim(),
-          city.trim(),
-          Number.parseInt(zipCode.trim()),
-          phone.trim(),
-          email.trim(),
-          hashedPassword,
-        ]
-      )
-      req.session.flash = {type: 'success', text: 'Account successfully created. Please log in.'}
-      res.redirect('./login')
-    } else {
-      res.render('register', {
-        errors: this.#errorsToBeReported,
-        formData: req.body,
-      })
-      this.#errorsToBeReported = {}
+      if (isEmailNotRegistered && isZipCodeValid && isEmailValid && isLengthsValid) {
+        await dbPool.execute(
+          'INSERT INTO members(fname, lname, address, city, zip, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+          [
+            firstName.trim(),
+            lastName.trim(),
+            address.trim(),
+            city.trim(),
+            Number.parseInt(zipCode.trim()),
+            phone.trim(),
+            email.trim(),
+            hashedPassword,
+          ]
+        )
+        req.session.flash = {type: 'success', text: 'Account successfully created. Please log in.'}
+        res.redirect('login')
+      } else {
+        res.render('register', {
+          errors: this.#errorsToBeReported,
+          formData: req.body,
+        })
+        this.#errorsToBeReported = {}
+      }
+    } catch (error) {
+        next(error)
     }
   }
 

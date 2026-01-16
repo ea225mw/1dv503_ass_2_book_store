@@ -7,6 +7,7 @@ import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {sessionOptions} from './config/sessionOptions.js'
 import {cartMiddleware} from './middlewares/cartMiddleware.js'
+import { errorHandler } from './middlewares/errorHandler.js'
 
 const app = express()
 
@@ -43,7 +44,7 @@ app.use(cartMiddleware)
 
 app.use('/', router)
 
-// app.use(err, req, res, next) {}
+app.use(errorHandler)
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`Server running at http://localhost:${server.address().port}`)

@@ -19,8 +19,12 @@ export class OrderController {
   }
 
   async getUsersOrders(userID) {
-    const [allOrders] = await dbPool.execute(`SELECT * FROM orders WHERE userid = ?`, [userID])
+    try {
+      const [allOrders] = await dbPool.execute(`SELECT * FROM orders WHERE userid = ?`, [userID])
     return allOrders
+    } catch (error) {
+      next(error)
+    }
   }
 
   async placeOrder(req, res, next) {
@@ -46,35 +50,61 @@ export class OrderController {
 
     const member = await this.getMember(userID)
 
-    const [result] = await dbPool.execute(
-      `INSERT INTO orders (userid, created, shipAddress, shipCity, shipZip) VALUES (?, ?, ?, ?, ?)`,
-      [userID, createdDate, member.address, member.city, member.zip]
-    )
-    return result.insertId // Order number
+    try {
+      const [result] = await dbPool.execute(
+        `INSERT INTO orders (userid, created, shipAddress, shipCity, shipZip) VALUES (?, ?, ?, ?, ?)`,
+        [userID, createdDate, member.address, member.city, member.zip]
+      )
+      return result.insertId // Order number
+    } catch (error) {
+      next(error)
+    }
   }
 
-  async writeToOrderDetails(orderNumber, cart) {
-    cart.forEach(async (lineItem) => {
-      await dbPool.execute(`INSERT INTO odetails (ono, isbn, qty, amount) VALUES (?, ?, ?, ?)`, [
-        orderNumber,
-        lineItem.isbn,
-        lineItem.qty,
-        lineItem.line_total,
-      ])
-    })
+async writeToOrderDetails(orderNumber, cart) {
+  if (cart.length === 0) return;
+  
+  try {
+    //Placeholders: (?, ?, ?, ?), (?, ?, ?, ?), ...
+    const placeholders = cart.map(() => '(?, ?, ?, ?)').join(', ')
+  
+    // Make array
+    const values = cart.flatMap(item => [
+      orderNumber,
+      item.isbn,
+      item.qty,
+      item.line_total
+    ])
+    
+    await dbPool.execute(
+      `INSERT INTO odetails (ono, isbn, qty, amount) VALUES ${placeholders}`,
+      values
+    )  
+  } catch (error) {
+    next(error)
   }
+}
 
   async getMember(userID) {
-    const [userInfo] = await dbPool.execute(`SELECT * FROM members WHERE userid = ?`, [userID])
-    return userInfo[0]
+    try {
+      const [userInfo] = await dbPool.execute(`SELECT * FROM members WHERE userid = ?`, [userID])
+      return userInfo[0]
+    } catch (error) {
+      next(error)
+    }
   }
 
   async emptyUsersCart(userID) {
-    await dbPool.execute(`DELETE FROM cart WHERE userid = ?`, [userID])
+    try {
+      await dbPool.execute(`DELETE FROM cart WHERE userid = ?`, [userID])
+    } catch (error) {
+      next(error)
+    }
   }
 
   async createInvoiceData(orderNumber) {
-    const [allOrderDetails] = await dbPool.execute(
+    try {
+      const [allOrderDetails] = await dbPool.execute(
       `
       SELECT od.ono, od.isbn, b.title, ROUND(b.price, 2) as price, od.qty, od.amount, DATE(o.created) AS created, m.fname, m.lname, o.shipAddress, o.shipCity, o.shipZip,
       SUM(od.amount) OVER (PARTITION BY od.ono) AS orderTotal 
@@ -84,9 +114,9 @@ export class OrderController {
       JOIN members m ON o.userid = m.userid
       WHERE od.ono = ?`,
       [orderNumber]
-    )
+      )
 
-    let invoiceData = {
+      let invoiceData = {
       orderNumber: allOrderDetails[0].ono,
       created: allOrderDetails[0].created.toLocaleDateString('sv-SE'),
       delivery: this.calculateDeliveryDate(allOrderDetails[0].created),
@@ -97,9 +127,9 @@ export class OrderController {
       zip: allOrderDetails[0].shipZip,
       lineItems: [],
       orderTotal: allOrderDetails[0].orderTotal,
-    }
+      }
 
-    allOrderDetails.forEach((lineItem) => {
+      allOrderDetails.forEach((lineItem) => {
       const {isbn, title, qty, price, amount} = lineItem
       invoiceData.lineItems.push({
         isbn: isbn,
@@ -107,9 +137,12 @@ export class OrderController {
         qty: qty,
         price: price,
         amount: amount,
+        })
       })
-    })
-    return invoiceData
+      return invoiceData
+    } catch (error) {
+      next(error)
+    }
   }
 
   calculateDeliveryDate(orderDate) {

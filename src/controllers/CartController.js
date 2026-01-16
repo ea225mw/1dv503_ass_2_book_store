@@ -7,20 +7,24 @@ export class CartController {
   }
 
   async updateCart(req, res, next) {
-    const {isbn, quantity} = req.body
-    const userID = Number(req.session.userID)
+    try {
+      const {isbn, quantity} = req.body
+      const userID = Number(req.session.userID)
 
-    await dbPool.execute(
-      `
-      INSERT INTO cart (userid, isbn, qty)
-      VALUES (?, ?, ?)
-      ON DUPLICATE KEY UPDATE qty = qty + VALUES(qty)
-      `,
-      [userID, isbn, quantity]
-    )
+      await dbPool.execute(
+        `
+        INSERT INTO cart (userid, isbn, qty)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE qty = qty + VALUES(qty)
+        `,
+        [userID, isbn, quantity]
+      )
 
-    const cart = await getCart(userID)
+      const cart = await getCart(userID)
 
-    res.json(cart)
+      res.json(cart)
+    } catch (error) {
+      next(error)
+    }
   }
 }

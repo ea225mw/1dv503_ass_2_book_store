@@ -41,7 +41,7 @@ function createSelectedInvoice(invoiceData) {
     tr.querySelector('.invoiceAmount').textContent = `${item.amount} kr`
     invoiceDiv.querySelector('tbody').append(tr)
   })
-document.querySelector('.ordersTableAndInvoiceDiv').append(invoiceDiv)
+  document.querySelector('.ordersTableAndInvoiceDiv').append(invoiceDiv)
 }
 
 function initCloseButton() {
