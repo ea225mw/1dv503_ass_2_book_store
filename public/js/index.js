@@ -9,6 +9,10 @@ const allAddToCartButtons = document.querySelectorAll('.addToCartButton')
 
 allAddToCartButtons.forEach((button) => {
   button.addEventListener('click', (event) => {
+    const quantityDiv = event.target.closest('.quantityDiv')
+    const quantityInput = quantityDiv.querySelector('.quantity')
+    if (quantityInput.value < 1) return
+
     sendDataToCart(event)
   })
 })
