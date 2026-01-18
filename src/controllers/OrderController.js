@@ -140,7 +140,6 @@ export class OrderController {
       })
       return invoiceData
     } catch (error) {
-      console.log(error)
       next(error)
     }
   }
@@ -152,7 +151,6 @@ export class OrderController {
   }
 
   async searchForOrder(req, res) {
-    console.log('Hello from searchForOrder')
     const orderNumber = Number(req.body.orderNumber)
 
     const invoiceData = await this.createInvoiceData(orderNumber)

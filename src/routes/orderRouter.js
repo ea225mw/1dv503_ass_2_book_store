@@ -10,4 +10,3 @@ router.get('/:id/invoice', controller.index)
 
 router.get('/', controller.index)
 router.post('/', controller.placeOrder)
-// router.post('/getinvoice', controller.searchForOrder)
